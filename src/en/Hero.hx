@@ -3,15 +3,13 @@ package en;
 class Hero extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
 
-	public function new(?x, ?y) {
-		super(x, y);
-
-		// Some default rendering for our character
-		var g = new h2d.Graphics(spr);
-		g.beginFill(0xff0000);
-		g.drawRect(0, 0, wid, hei / 4);
+	public function new(?x, ?y, ?spriteLib) {
+		super(x, y, spriteLib);
 
 		ca = Main.ME.controller.createAccess("hero"); // creates an instance of controller
+		
+		spr.anim.registerStateAnim("idle", 0);
+		spr.anim.registerStateAnim("move", 1, function() return dx != 0 || dy != 0);
 	}
 
 	override function dispose() { // call on garbage collection
@@ -22,7 +20,7 @@ class Hero extends Entity {
 	override function update() { // the Entity main loop
 		var moveLikeVehicule = true;
 		var rotationSpeed = 0.02;
-		var movementSpeed = 0.01;
+		var movementSpeed = 0.02;
 
 		if (moveLikeVehicule) {
 			// Vehicule movement : Up accelerates in the current angle, right and left change that angle

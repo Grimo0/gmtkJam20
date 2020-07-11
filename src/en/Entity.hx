@@ -89,7 +89,7 @@ class Entity {
 	var debugBounds : Null<h2d.Graphics>;
 	var invalidateDebugBounds = false;
 
-	public function new(?x : Int, ?y : Int) {
+	public function new(?x : Int, ?y : Int, ?spriteLib : SpriteLib) {
 		uid = Const.NEXT_UNIQ;
 		ALL.push(this);
 
@@ -99,7 +99,7 @@ class Entity {
 		if (x != null && y != null)
 			setPosCell(x, y);
 
-		spr = new HSprite(Assets.tiles);
+		spr = new HSprite(spriteLib != null ? spriteLib : Assets.tiles);
 		Game.ME.scroller.add(spr, Const.DP_MAIN);
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
