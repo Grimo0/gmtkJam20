@@ -34,7 +34,7 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 
-		hero = new en.Hero(10, 10, Assets.penguin);
+		hero = new en.Hero(Data.AnimalKind.penguin, Assets.penguin);
 
 		level.setLevel(Data.LevelsKind.first_area);
 
