@@ -85,6 +85,7 @@ class Entity {
 
 	public var maxLife(default, null) : Int;
 	public var life(default, null) : Int;
+	public var pointsToPlayer(default, null) : Int;
 
 	var actions : Array<{id : String, cb : Void->Void, t : Float}> = [];
 

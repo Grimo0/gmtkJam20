@@ -14,6 +14,9 @@ class Game extends Process {
 	public var hud : ui.Hud;
 	public var hero : Hero;
 
+	public var levelTimer : Float;
+	public var points : Int;
+
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, {id : String, t : Float, f : Float}> = new Map();
 
@@ -35,6 +38,9 @@ class Game extends Process {
 		hud = new ui.Hud();
 
 		hero = new en.Hero(Data.AnimalKind.penguin, Assets.penguin);
+		
+		levelTimer = 0.0;
+		points = 0;
 
 		level.setLevel(Data.LevelsKind.first_area);
 
@@ -174,6 +180,8 @@ class Game extends Process {
 				Main.ME.startGame();
 		}
 
+		// update timer
+		levelTimer += utmod;
 	}
 
 	override function postUpdate() {

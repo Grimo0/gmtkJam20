@@ -22,7 +22,6 @@ class SineDeformShader extends hxsl.Shader {
 			calculatedUV.x += sin(absolutePosition.y * frequency + time * speed + absolutePosition.x * 0.1) * amplitude;
 			//pixelColor = texture.get(calculatedUV);
 		}
-
 	};
 
 	public function new( frequency = 10., amplitude = 0.01, speed = 1. ) {
@@ -55,10 +54,10 @@ class Hud extends dn.Process {
 	var flow : h2d.Flow;
 	var invalidated = true;
 	
-	public var levelTimer : Float;
 	public var levelTimerDisplay : Float;
 
 	var levelTimerHud = new h2d.Text(hxd.res.DefaultFont.get());
+	var pointsHud = new h2d.Text(hxd.res.DefaultFont.get());
 	
 	var dureePopup : Float;
 	var scoreTf : h2d.Text;
@@ -77,12 +76,17 @@ class Hud extends dn.Process {
 		comboUiLayer = new h2d.Layers();
 		root.add(comboUiLayer, Const.DP_UI);
 
-		levelTimer = 0.0;
 		levelTimerHud.scale(3);
 		levelTimerHud.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
 		levelTimerHud.x = 0;
 		levelTimerHud.y = -50;
 		Game.ME.scroller.add(levelTimerHud, Const.DP_UI);
+		
+		pointsHud.scale(3);
+		pointsHud.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
+		pointsHud.x = 150;
+		pointsHud.y = -50;
+		Game.ME.scroller.add(pointsHud, Const.DP_UI);
 
 		dureePopup = -1;
 
@@ -90,6 +94,7 @@ class Hud extends dn.Process {
 	}
 
 	public function pointsGain(x=70.0, y=50.0, pts=1000) {
+		// display a popup with the points won, after collision
 		dureePopup = 0.0;
 
 		scoreTf = new h2d.Text(hxd.res.DefaultFont.get());
@@ -106,7 +111,7 @@ class Hud extends dn.Process {
 		var cpt = 1.5;
 		for (l in comboUiLayer) {
 			l.alpha -= 0.2;
-			cpt += 0.2;
+			cpt += 0.5;
 		}
 		scoreTf.scale(cpt);
 		comboUiLayer.add(scoreTf, Const.DP_UI);
@@ -130,26 +135,24 @@ class Hud extends dn.Process {
 			invalidated = false;
 			render();
 		}
-
 	}
 
 	override function update() {
 		super.update();
 
-		// timer
-		levelTimer += utmod;
-		levelTimerDisplay = Math.ceil(levelTimer)/100;
-
+		// timer hud
+		levelTimerDisplay = Math.ceil(game.levelTimer)/100;
 		levelTimerHud.text = levelTimerDisplay + "s";
 
+		// total score hud
+		pointsHud.text = "Score : " + game.points + " points";
 
 		// score popups
 		if (dureePopup >= 0) {
 			dureePopup += tmod;
 		}
-		if (dureePopup > 70) {
+		if (dureePopup > 100) {
 			comboUiLayer.removeChildren();
-
 			dureePopup = -1;
 		}
 	}
