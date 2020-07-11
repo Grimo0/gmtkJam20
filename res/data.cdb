@@ -109,11 +109,23 @@
 			"lines": [
 				{
 					"id": "barricade",
-					"isDestructible": true,
 					"type": 0,
 					"objectHealth": 1,
-					"pointsToPlayer": 25,
-					"rotation": 0
+					"isDestructible": true,
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 2,
+						"y": 2
+					},
+					"destructedImg": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 2,
+						"y": 3
+					},
+					"pointsToPlayer": 25
 				},
 				{
 					"id": "garbagecan",
@@ -262,26 +274,15 @@
 				},
 				{
 					"id": "smallfence",
-					"type": 4,
+					"type": 0,
 					"objectHealth": 1,
 					"isDestructible": true,
-					"img": {
-						"file": "atlas/spritesheet.png",
-						"size": 16,
-						"x": 2,
-						"y": 2
-					},
-					"destructedImg": {
-						"file": "atlas/spritesheet.png",
-						"size": 16,
-						"x": 2,
-						"y": 3
-					},
-					"rotation": 0
+					"rotation": 0,
+					"pointsToPlayer": 25
 				},
 				{
-					"id": "longfence",
-					"type": 4,
+					"id": "longbarricade",
+					"type": 0,
 					"objectHealth": 1,
 					"isDestructible": true,
 					"img": {
@@ -298,7 +299,8 @@
 						"y": 3,
 						"width": 2
 					},
-					"rotation": 0
+					"rotation": 0,
+					"pointsToPlayer": 50
 				},
 				{
 					"id": "plant",
@@ -405,13 +407,6 @@
 					},
 					"damageToPlayer": 20,
 					"pointsToPlayer": 100,
-					"rotation": 0
-				},
-				{
-					"id": "empty",
-					"type": 9,
-					"objectHealth": 0,
-					"isDestructible": false,
 					"rotation": 0
 				}
 			],
@@ -908,7 +903,7 @@
 						{
 							"x": 30,
 							"y": 25,
-							"object": "longfence",
+							"object": "longbarricade",
 							"width": 1,
 							"height": 1
 						},
@@ -922,7 +917,7 @@
 						{
 							"x": 33,
 							"y": 27,
-							"object": "longfence",
+							"object": "longbarricade",
 							"width": 1,
 							"height": 1
 						},

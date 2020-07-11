@@ -1,5 +1,8 @@
 package ui;
 
+import hxd.fmt.grd.Data.Gradient;
+import h2d.filter.ColorMatrix;
+
 class SineDeformShader extends hxsl.Shader {
 
 	static var SRC = {
@@ -52,9 +55,16 @@ class Hud extends dn.Process {
 	var flow : h2d.Flow;
 	var invalidated = true;
 	
+	public var levelTimer : Float;
+	public var levelTimerDisplay : Float;
+
+	var levelTimerHud = new h2d.Text(hxd.res.DefaultFont.get());
+	
 	var dureePopup : Float;
 	var scoreTf : h2d.Text;
 	var comboUiLayer : h2d.Layers;
+	var idCouleur : Int;
+	var couleurs : Array<Int>;
 
 	public function new() {
 		super(Game.ME);
@@ -67,7 +77,16 @@ class Hud extends dn.Process {
 		comboUiLayer = new h2d.Layers();
 		root.add(comboUiLayer, Const.DP_UI);
 
+		levelTimer = 0.0;
+		levelTimerHud.scale(3);
+		levelTimerHud.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
+		levelTimerHud.x = 0;
+		levelTimerHud.y = -50;
+		Game.ME.scroller.add(levelTimerHud, Const.DP_UI);
+
 		dureePopup = -1;
+
+		couleurs = [0xFF0000, 0x555555, 0x181818, 0xD1D1D1, 0x535353, 0xFFFFFF, 0x626262, 0x363636, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF];
 	}
 
 	public function pointsGain(x=0, y=0, pts=1000) {
@@ -78,11 +97,16 @@ class Hud extends dn.Process {
 		scoreTf.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
 		scoreTf.text = "+" + pts + " points";
 		scoreTf.textAlign = Center;
-		//scoreTf.textColor = Math.random();
+		idCouleur = Math.round(Math.random() * 10);
+		scoreTf.textColor = couleurs[idCouleur];
 		scoreTf.x = x;
 		scoreTf.y = y;
 		scoreTf.rotation = Math.random()-0.5;
 		scoreTf.addShader(new SineDeformShader(0.1,0.002,3));
+		for (l in comboUiLayer) {
+			l.alpha -= 0.1;
+			//l.filter = new ColorMatrix(Gradient);
+		}
 		comboUiLayer.add(scoreTf, Const.DP_UI);
 		// destroy message after few seconds
 	}
@@ -109,11 +133,19 @@ class Hud extends dn.Process {
 
 	override function update() {
 		super.update();
-		
+
+		// timer
+		levelTimer += utmod;
+		levelTimerDisplay = Math.ceil(levelTimer)/100;
+
+		levelTimerHud.text = levelTimerDisplay + "s";
+
+
+		// score popups
 		if (dureePopup >= 0) {
 			dureePopup += tmod;
 		}
-		if (dureePopup > 50) {
+		if (dureePopup > 70) {
 			comboUiLayer.removeChildren();
 
 			dureePopup = -1;

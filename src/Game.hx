@@ -13,10 +13,7 @@ class Game extends Process {
 	public var level : Level;
 	public var hud : ui.Hud;
 	public var hero : Hero;
-	public var levelTimer : Float;
-	public var levelTimerDisplay : Float;
 
-	var levelTimerHud = new h2d.Text(hxd.res.DefaultFont.get());
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, {id : String, t : Float, f : Float}> = new Map();
 
@@ -40,13 +37,6 @@ class Game extends Process {
 		hero = new en.Hero(Data.AnimalKind.penguin, Assets.penguin);
 
 		level.setLevel(Data.LevelsKind.first_area);
-
-		levelTimer = 0.0;
-		levelTimerHud.scale(3);
-		levelTimerHud.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
-		levelTimerHud.x = 0;
-		levelTimerHud.y = -50;
-		Game.ME.scroller.add(levelTimerHud, Const.DP_UI);
 
 		camera.trackTarget(hero, true);
 
@@ -183,11 +173,6 @@ class Game extends Process {
 			if (ca.selectPressed())
 				Main.ME.startGame();
 		}
-
-		levelTimer += utmod;
-		levelTimerDisplay = Math.ceil(levelTimer)/100;
-
-		levelTimerHud.text = levelTimerDisplay + "s";
 
 	}
 
