@@ -51,7 +51,6 @@ class Entity {
 		invalidateDebugBounds = true;
 		return radius = v;
 	}
-	public var collide = true;
 
 	// Movements
 	public var dx = 0.;
@@ -65,6 +64,7 @@ class Entity {
 
 	public var frict = 0.82;
 	public var bumpFrict = 0.93;
+	public var bumpStrength = 0.;
 
 	public var footX(get, never) : Float;
 	inline function get_footX() return (cx + xr) * Const.GRID;
@@ -82,6 +82,9 @@ class Entity {
 	public var sprSquashX = 1.0;
 	public var sprSquashY = 1.0;
 	public var visible = true;
+
+	public var maxLife(default, null) : Int;
+	public var life(default, null) : Int;
 
 	var actions : Array<{id : String, cb : Void->Void, t : Float}> = [];
 
@@ -155,7 +158,7 @@ class Entity {
 		dy = bdy = 0;
 	}
 
-	public function is<T : Entity>(c : Class<T>) return Std.is(this, c);
+	public function is<T : Entity>(c : Class<T>) return Std.isOfType(this, c);
 
 	public function as<T : Entity>(c : Class<T>) : T return Std.downcast(this, c);
 
@@ -172,6 +175,20 @@ class Entity {
 
 	public inline function distPxFree(x : Float, y : Float)
 		return M.dist(footX, footY, x, y);
+	
+	public inline function isDead() {
+		return life <= 0;
+	}
+
+	public function hit(dmg : Int, from : Null<Entity>) {
+		if (isDead() || dmg <= 0)
+			return;
+
+		life = M.iclamp(life - dmg, 0, maxLife);
+		onDamage(dmg, from);
+	}
+
+	public function onDamage(dmg : Int, from : Null<Entity>) {}
 
 	public inline function destroy() {
 		if (!destroyed) {
@@ -369,13 +386,13 @@ class Entity {
 
 	public function fixedUpdate() {}
 
+	public function onCollide(e : Entity) {}
+
 	public function update() {
 		var cellCheckR = M.fabs(radius * 2 / Const.GRID);
 		var cellCheckD = Std.int(cellCheckR - 0.5);
 		cellCheckR -= cellCheckD;
 
-		var bumpSpeed = 0.3;
-		
 		// X
 		var steps = M.ceil(M.fabs(dxTotal * tmod));
 		var step = dxTotal * tmod / steps;
@@ -383,13 +400,14 @@ class Entity {
 			xr += step;
 
 			// X collisions checks
-			if (xr >= 1 - cellCheckR && level.hasCollision(cx + cellCheckD, cy)) {
-				bdx -= bumpSpeed * tmod;
+			if (xr >= 1 - cellCheckR && level.hasColl(cx + cellCheckD, cy)) {
+				onCollide(level.getBreakable(cx + cellCheckD, cy));
+				bdx -= bumpStrength * tmod;
 				xr = 1 - cellCheckR;
 				dx = 0;
-				hud.pointsGain();
-			} else if (xr <= cellCheckR && level.hasCollision(cx - cellCheckD, cy)) {
-				bdx += bumpSpeed * tmod;
+			} else if (xr <= cellCheckR && level.hasColl(cx - cellCheckD, cy)) {
+				onCollide(level.getBreakable(cx - cellCheckD, cy));
+				bdx += bumpStrength * tmod;
 				xr = cellCheckR;
 				dx = 0;
 			}
@@ -418,12 +436,14 @@ class Entity {
 			yr += step;
 
 			// Y collisions checks
-			if (yr >= 1 - cellCheckR && level.hasCollision(cx, cy + cellCheckD)) {
-				bdy -= bumpSpeed * tmod;
+			if (yr >= 1 - cellCheckR && level.hasColl(cx, cy + cellCheckD)) {
+				onCollide(level.getBreakable(cx, cy + cellCheckD));
+				bdy -= bumpStrength * tmod;
 				yr = 1 - cellCheckR;
 				dy = 0;
-			} else if (yr <= cellCheckR && level.hasCollision(cx, cy - cellCheckD)) {
-				bdy += bumpSpeed * tmod;
+			} else if (yr <= cellCheckR && level.hasColl(cx, cy - cellCheckD)) {
+				onCollide(level.getBreakable(cx, cy - cellCheckD));
+				bdy += bumpStrength * tmod;
 				yr = cellCheckR;
 				dy = 0;
 			}

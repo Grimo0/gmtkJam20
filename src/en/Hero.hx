@@ -2,6 +2,7 @@ package en;
 
 class Hero extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
+
 	public var data(default, null) : Data.Animal;
 
 	public function new(kind : Data.AnimalKind, ?x, ?y, ?spriteLib) {
@@ -11,19 +12,31 @@ class Hero extends Entity {
 
 		data = Data.animal.get(kind);
 
-		radius = data.radius;
-
 		spr.anim.registerStateAnim("idle", 0);
 		spr.anim.registerStateAnim("move", 1, function() return dx != 0 || dy != 0);
 		// spr.anim.setStateAnimSpeed("move", );
 
+		maxLife = data.lifePoints;
 		wid = spr.tile.width;
 		hei = spr.tile.height;
+		radius = data.radius;
+		bumpStrength = data.bumpStrength;
 	}
 
 	override function dispose() { // call on garbage collection
 		super.dispose();
 		ca.dispose(); // release on destruction
+	}
+
+	override function onCollide(e : Entity) {
+		if (e == null || e == this) return;
+
+		var b = e.as(Breakable);
+		if (b == null) return;
+
+		hud.pointsGain();
+		b.onCollide(this);
+		b.hit(1, this);
 	}
 
 	override function update() { // the Entity main loop

@@ -15,7 +15,8 @@ class Level extends dn.Process {
 	public var hei(get, never) : Int;
 	inline function get_hei() return current.height;
 
-	public var collMap : Map<Int, Bool>;
+	var collMap : Map<Int, Bool>;
+	var breakables : Map<Int, Breakable>;
 
 	public function new() {
 		super(Game.ME);
@@ -23,6 +24,7 @@ class Level extends dn.Process {
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 
 		collMap = new Map();
+		breakables = new Map();
 	}
 
 	public inline function isValid(cx, cy)
@@ -31,11 +33,20 @@ class Level extends dn.Process {
 	public inline function coordId(cx, cy)
 		return cx + cy * wid;
 
-	public inline function hasCollision(cx, cy) : Bool
+	public inline function hasColl(cx, cy) : Bool
 		return !isValid(cx, cy) ? true : collMap.get(coordId(cx, cy));
 
-	public function setColl(x, y, v : Bool) {
+	public inline function setColl(x, y, v : Bool) {
 		collMap.set(coordId(x, y), v);
+	}
+
+	public inline function getBreakable(x, y) {
+		return breakables.get(coordId(x, y));
+	}
+
+	public inline function setBreakable(x, y, v : Breakable) {
+		breakables.set(coordId(x, y), v);
+		setColl(x, y, breakables != null);
 	}
 
 	override function init() {
@@ -76,9 +87,8 @@ class Level extends dn.Process {
 		}
 
 		for (o in current.objects) {
-			setColl( o.x, o.y, true);
-
-			new Breakable(o.object, o.x, o.y, Assets.objects);
+			var b = new Breakable(o.object, o.x, o.y, Assets.objects);
+			setBreakable(o.x, o.y, b);
 		}
 
 		for (t in current.triggers) {
