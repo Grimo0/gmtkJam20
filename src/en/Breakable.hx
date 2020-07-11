@@ -18,7 +18,10 @@ class Breakable extends Entity {
 
 	override public function onDamage(dmg : Int, from : Null<Entity>) {
 		if (life <= 0) {
-			spr.set(data.id.toString(), 1);
+			if (spr.lib.exists(data.id.toString(), 1))
+				spr.set(data.id.toString(), 1);
+			else
+				destroy();
 			level.setColl(cx, cy, false);
 		}
 	}
