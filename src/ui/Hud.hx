@@ -89,11 +89,10 @@ class Hud extends dn.Process {
 		couleurs = [0xff4017, 0x4fff17, 0x17fffb, 0x1753ff, 0xa717ff, 0xFFFFFF, 0xfbff17, 0xff17f8, 0xffb917, 0xFFFFFF, 0xFFFFFF];
 	}
 
-	public function pointsGain(x=70, y=50, pts=1000) {
+	public function pointsGain(x=70.0, y=50.0, pts=1000) {
 		dureePopup = 0.0;
 
 		scoreTf = new h2d.Text(hxd.res.DefaultFont.get());
-		scoreTf.scale(2);
 		scoreTf.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
 		scoreTf.text = "+" + pts + " points";
 		scoreTf.textAlign = Center;
@@ -103,10 +102,13 @@ class Hud extends dn.Process {
 		scoreTf.y = y;
 		scoreTf.rotation = Math.random()-0.5;
 		scoreTf.addShader(new SineDeformShader(0.1,0.002,3));
+		
+		var cpt = 1.5;
 		for (l in comboUiLayer) {
 			l.alpha -= 0.2;
-			//l.filter = new ColorMatrix(Gradient);
+			cpt += 0.2;
 		}
+		scoreTf.scale(cpt);
 		comboUiLayer.add(scoreTf, Const.DP_UI);
 		// destroy message after few seconds
 	}

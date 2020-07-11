@@ -22,6 +22,10 @@
 				},
 				{
 					"typeStr": "4",
+					"name": "minSpeed"
+				},
+				{
+					"typeStr": "4",
 					"name": "decelerationSpeed"
 				},
 				{
@@ -56,7 +60,8 @@
 					"radius": 13,
 					"backSpeed": 0.01,
 					"lifePoints": 100,
-					"bumpStrength": 0.3
+					"bumpStrength": 0.3,
+					"minSpeed": 0.01
 				},
 				{
 					"id": "plant",
@@ -68,7 +73,8 @@
 					"radius": 14,
 					"backSpeed": 0.02,
 					"lifePoints": 100,
-					"bumpStrength": 0.3
+					"bumpStrength": 0.3,
+					"minSpeed": 0
 				}
 			],
 			"separators": [],
@@ -458,7 +464,7 @@
 					"rotation": 0
 				},
 				{
-					"id": "electicbox",
+					"id": "electricbox",
 					"type": 1,
 					"objectHealth": 1,
 					"isDestructible": true,
@@ -893,7 +899,7 @@
 						{
 							"x": 37,
 							"y": 15,
-							"object": "electicbox",
+							"object": "electricbox",
 							"width": 1,
 							"height": 1
 						},
