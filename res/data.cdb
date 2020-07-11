@@ -370,8 +370,49 @@
 		},
 		{
 			"name": "vehicule",
-			"columns": [],
-			"lines": [],
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id",
+					"display": null
+				},
+				{
+					"typeStr": "1",
+					"name": "name",
+					"display": null
+				},
+				{
+					"typeStr": "14",
+					"name": "img",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "accelerationSpeed"
+				},
+				{
+					"typeStr": "4",
+					"name": "maxSpeed"
+				},
+				{
+					"typeStr": "4",
+					"name": "decelerationSpeed"
+				},
+				{
+					"typeStr": "4",
+					"name": "turnSpeed"
+				}
+			],
+			"lines": [
+				{
+					"id": "skateboard",
+					"name": "The skateboard",
+					"accelerationSpeed": 0.04,
+					"maxSpeed": 0.08,
+					"decelerationSpeed": 0.02,
+					"turnSpeed": 0.08
+				}
+			],
 			"separators": [],
 			"props": {}
 		}
