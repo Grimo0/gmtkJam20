@@ -10,6 +10,7 @@ class Assets {
 	public static var tiles : SpriteLib;
 	public static var objects : SpriteLib;
 	public static var penguin : SpriteLib;
+	public static var plant : SpriteLib;
 
 	static var initDone = false;
 
@@ -57,5 +58,9 @@ class Assets {
 		penguin = dn.heaps.assets.Atlas.load("atlas/penguin.atlas");
 		penguin.defineAnim("idle", "0");
 		penguin.defineAnim("move", "0-3(10)");
+
+		plant = dn.heaps.assets.Atlas.load("atlas/plant.atlas");
+		plant.defineAnim("idle", "0-2(10)");
+		plant.defineAnim("move", "0-3(10)");
 	}
 }
