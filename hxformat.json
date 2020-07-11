@@ -5,7 +5,8 @@
 			"afterVars": 0,
 			"afterStaticVars": 2
 		},
-		"maxAnywhereInFile": 4
+		"maxAnywhereInFile": 4,
+		"afterBlocks": "keep"
 	},
 	"sameLine": {
 		"anonFunctionBody": "keep",
