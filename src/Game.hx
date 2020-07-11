@@ -37,7 +37,7 @@ class Game extends Process {
 
 		level.setLevel(Data.LevelsKind.first_area);
 
-		new en.Hero(5,5);
+		new en.Hero(5,5);		
 	}
 
 	public function onCdbReload() {}
