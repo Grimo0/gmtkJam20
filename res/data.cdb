@@ -31,6 +31,10 @@
 				{
 					"typeStr": "4",
 					"name": "turnSpeed"
+				},
+				{
+					"typeStr": "4",
+					"name": "radius"
 				}
 			],
 			"lines": [
@@ -40,7 +44,8 @@
 					"turnSpeed": 0.01,
 					"maxSpeed": 0.05,
 					"accelerationSpeed": 0.01,
-					"decelerationSpeed": 0.01
+					"decelerationSpeed": 0.01,
+					"radius": 0
 				}
 			],
 			"separators": [],
