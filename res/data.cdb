@@ -97,7 +97,7 @@
 					"name": "isDestructible"
 				},
 				{
-					"typeStr": "4",
+					"typeStr": "3",
 					"name": "damageToPlayer",
 					"opt": true
 				},
