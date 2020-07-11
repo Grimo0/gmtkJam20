@@ -1,5 +1,7 @@
 package en;
 
+import ui.Hud;
+
 class Entity {
 	public static var ALL : Array<Entity> = [];
 	public static var GC : Array<Entity> = [];
@@ -377,6 +379,7 @@ class Entity {
 			if (xr >= 0.5 && level.hasCollision(cx + 1, cy)) {
 				xr = 0.5;
 				dx = 0;
+				//hud.pointsGain();
 			} else if (xr <= 0.5 && level.hasCollision(cx - 1, cy)) {
 				xr = 0.5;
 				dx = 0;
