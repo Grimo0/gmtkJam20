@@ -49,7 +49,7 @@
 					"maxSpeed": 0.05,
 					"accelerationSpeed": 0.01,
 					"decelerationSpeed": 0.01,
-					"radius": 0.5,
+					"radius": 20,
 					"backSpeed": 0.01
 				}
 			],
