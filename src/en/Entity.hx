@@ -46,7 +46,7 @@ class Entity {
 		invalidateDebugBounds = true;
 		return wid = v;
 	}
-	public var radius(default, set) : Float = Const.GRID;
+	public var radius(default, set) : Float = Const.GRID * 0.5;
 	inline function set_radius(v) {
 		invalidateDebugBounds = true;
 		return radius = v;
@@ -77,7 +77,6 @@ class Entity {
 	public var spr : HSprite;
 	public var baseColor : h3d.Vector;
 	public var blinkColor : h3d.Vector;
-	public var colorMatrix : h3d.Matrix;
 	public var sprScaleX = 1.0;
 	public var sprScaleY = 1.0;
 	public var sprSquashX = 1.0;
@@ -102,11 +101,11 @@ class Entity {
 			setPosCell(x, y);
 
 		spr = new HSprite(spriteLib != null ? spriteLib : Assets.tiles);
-		Game.ME.scroller.add(spr, Const.DP_MAIN);
+		level.root.add(spr, Const.DP_MAIN);
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
 		blinkColor = new h3d.Vector();
-		spr.colorMatrix = colorMatrix = h3d.Matrix.I();
+		spr.colorMatrix = h3d.Matrix.I();
 		spr.setCenterRatio(0.5, 0.5);
 
 		if (ui.Console.ME.hasFlag("bounds"))
@@ -186,7 +185,6 @@ class Entity {
 
 		baseColor = null;
 		blinkColor = null;
-		colorMatrix = null;
 
 		spr.remove();
 		spr = null;
@@ -213,7 +211,7 @@ class Entity {
 		}
 		if (v != null) {
 			if (debugLabel == null)
-				debugLabel = new h2d.Text(Assets.fontTiny, Game.ME.scroller);
+				debugLabel = new h2d.Text(Assets.fontTiny, game.scroller);
 			debugLabel.text = Std.string(v);
 			debugLabel.textColor = c;
 		}
@@ -242,6 +240,9 @@ class Entity {
 		// Box
 		debugBounds.lineStyle(1, c, 0.5);
 		debugBounds.drawRect(-wid / 2, -hei / 2, wid, hei);
+
+		debugBounds.lineStyle(1, c, 0.8);
+		debugBounds.drawRoundedRect(-radius, -radius, radius * 2, radius * 2, radius);
 
 		// Radius
 		debugBounds.lineStyle(1, c, 0.3);

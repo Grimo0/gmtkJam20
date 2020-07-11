@@ -2,7 +2,7 @@
 penguin.png
 size: 256,64
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 idle0
   rotate: false

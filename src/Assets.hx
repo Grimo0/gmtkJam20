@@ -8,6 +8,7 @@ class Assets {
 	public static var fontLarge : h2d.Font;
 
 	public static var tiles : SpriteLib;
+	public static var objects : SpriteLib;
 	public static var penguin : SpriteLib;
 
 	static var initDone = false;
@@ -50,6 +51,8 @@ class Assets {
 		fontLarge = hxd.Res.fonts.barlow_condensed_medium_regular_32.toFont();
 
 		tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
+		
+		objects = dn.heaps.assets.Atlas.load("atlas/spritesheet.atlas");
 
 		penguin = dn.heaps.assets.Atlas.load("atlas/penguin.atlas");
 		penguin.defineAnim("idle", "0");

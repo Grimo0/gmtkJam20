@@ -1,3 +1,4 @@
+import en.Breakable;
 import dn.CdbHelper;
 
 class Level extends dn.Process {
@@ -63,25 +64,31 @@ class Level extends dn.Process {
 
 		collMap.clear();
 
-		// Add level layers to the root
+		// Add level layers to the root & add collisions
 		var lIdx = 0;
 		for (layer in cdb.layers) {
 			if (layer.name == "collision") {
 				for (t in CdbHelper.getLayerPoints(current.layers[lIdx].data, wid))
 					setColl(t.cx, t.cy, true);
 			}
-			root.addChild(layer.content);
+			root.addChildAt(layer.content, layer.name == "over" ? Const.DP_FRONT : Const.DP_BG);
 			lIdx++;
+		}
+
+		for (o in current.objects) {
+			setColl( o.x, o.y, true);
+
+			new Breakable(o.object, o.x, o.y, Assets.objects);
+		}
+
+		for (t in current.triggers) {
+			if (t.id == Start) {
+				Game.ME.hero.setPosCell(t.x, t.y);
+			}
 		}
 
 		// Update camera zoom
 		Const.SCALE = Math.floor(Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
-
-		for (t in current.triggers) {
-			if (t.id == Data.Levels_triggers_id.Start) {
-				Game.ME.hero.setPosCell(t.x, t.y);
-			}
-		}
 	}
 
 	override function onResize() {

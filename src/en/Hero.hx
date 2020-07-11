@@ -2,7 +2,7 @@ package en;
 
 class Hero extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
-	var data : Data.Animal;
+	public var data(default, null) : Data.Animal;
 
 	public function new(kind : Data.AnimalKind, ?x, ?y, ?spriteLib) {
 		super(x, y, spriteLib);
@@ -12,7 +12,7 @@ class Hero extends Entity {
 		data = Data.animal.get(kind);
 
 		radius = data.radius;
-		
+
 		spr.anim.registerStateAnim("idle", 0);
 		spr.anim.registerStateAnim("move", 1, function() return dx != 0 || dy != 0);
 		// spr.anim.setStateAnimSpeed("move", );
@@ -40,7 +40,7 @@ class Hero extends Entity {
 			if (ca.rightDown() || ca.isKeyboardDown(hxd.Key.RIGHT)) {
 				angle += rotationSpeed * Math.PI * tmod;
 			}
-	
+
 			if (ca.upDown() || ca.isKeyboardDown(hxd.Key.UP)) {
 				// Calculate the progression on x and y based on the angle
 				dx += Math.cos(angle) * movementSpeed * tmod;
@@ -61,7 +61,7 @@ class Hero extends Entity {
 			if (ca.downDown() || ca.isKeyboardDown(hxd.Key.DOWN))
 				dy += movementSpeed * tmod;
 		}
-		
+
 		super.update();
 	}
 }
