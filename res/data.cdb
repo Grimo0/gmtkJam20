@@ -13,10 +13,6 @@
 					"display": null
 				},
 				{
-					"typeStr": "14",
-					"name": "img"
-				},
-				{
 					"typeStr": "4",
 					"name": "accelerationSpeed"
 				},
@@ -43,6 +39,10 @@
 				{
 					"typeStr": "3",
 					"name": "lifePoints"
+				},
+				{
+					"typeStr": "4",
+					"name": "bumpStrength"
 				}
 			],
 			"lines": [
@@ -55,7 +55,20 @@
 					"decelerationSpeed": 0.01,
 					"radius": 13,
 					"backSpeed": 0.01,
-					"lifePoints": 100
+					"lifePoints": 100,
+					"bumpStrength": 0.3
+				},
+				{
+					"id": "plant",
+					"name": "Plant man",
+					"accelerationSpeed": 0.02,
+					"maxSpeed": 0.06,
+					"decelerationSpeed": 0.02,
+					"turnSpeed": 0.005,
+					"radius": 14,
+					"backSpeed": 0.02,
+					"lifePoints": 100,
+					"bumpStrength": 0.3
 				}
 			],
 			"separators": [],
