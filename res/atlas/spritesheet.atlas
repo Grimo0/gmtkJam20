@@ -6,16 +6,16 @@ filter: Linear,Linear
 repeat: none
 barricade0
   rotate: false
-  xy: 0, 32
-  size: 32, 16
-  orig: 32, 16
+  xy: 32, 32
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 barricade1
   rotate: false
-  xy: 0, 32
-  size: 32, 16
-  orig: 32, 16
+  xy: 32, 48
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 garbagecan0
@@ -53,23 +53,9 @@ car0
   orig: 16, 32
   offset: 0, 0
   index: -1
-car1
-  rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
 car2
   rotate: false
   xy: 32, 80
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-car3
-  rotate: false
-  xy: 32, 96
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
@@ -81,53 +67,39 @@ car4
   orig: 16, 32
   offset: 0, 0
   index: -1
-car5
-  rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
 atm0
   rotate: false
-  xy: 32, 80
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-atm1
-  rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
+  xy: 144, 80
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: -1
 computer0
   rotate: false
-  xy: 32, 80
-  size: 16, 32
-  orig: 16, 32
+  xy: 176, 80
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 computer1
   rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
+  xy: 176, 96
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 animalcage0
   rotate: false
-  xy: 32, 80
-  size: 160, 32
-  orig: 160, 32
+  xy: 160, 32
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 animalcage1
   rotate: false
-  xy: 32, 96
-  size: 192, 32
-  orig: 192, 32
+  xy: 192, 32
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 fire0
@@ -146,30 +118,23 @@ fire1
   index: -1
 barbedwire0
   rotate: false
-  xy: 32, 80
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-barbedwire1
-  rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
+  xy: 192, 64
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 wall0
   rotate: false
-  xy: 32, 80
-  size: 16, 32
-  orig: 16, 32
+  xy: 240, 64
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 wall1
   rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
+  xy: 240, 80
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 bush0
@@ -188,58 +153,44 @@ bush1
   index: -1
 smallfence0
   rotate: false
-  xy: 32, 32
+  xy: 176, 64
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 smallfence1
   rotate: false
-  xy: 32, 48
+  xy: 192, 80
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-longfence0
+longbarricade0
   rotate: false
-  xy: 32, 32
-  size: 32, 32
-  orig: 32, 32
+  xy: 48, 32
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: -1
-longfence1
+longbarricade1
   rotate: false
-  xy: 32, 48
-  size: 32, 32
-  orig: 32, 32
+  xy: 48, 48
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: -1
 plant0
   rotate: false
-  xy: 32, 80
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-plant1
-  rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
+  xy: 16, 128
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 mushroom0
   rotate: false
-  xy: 32, 80
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-mushroom1
-  rotate: false
-  xy: 32, 96
-  size: 16, 32
-  orig: 16, 32
+  xy: 0, 128
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 waterdrinker0
@@ -273,25 +224,18 @@ table1
 stool0
   rotate: false
   xy: 96, 32
-  size: 32, 16
-  orig: 32, 16
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 stool1
   rotate: false
   xy: 96, 48
-  size: 32, 16
-  orig: 32, 16
-  offset: 0, 0
-  index: -1
-electicbox0
-  rotate: false
-  xy: 32, 64
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-electicbox1
+electricbox0
   rotate: false
   xy: 32, 64
   size: 16, 16
@@ -305,9 +249,23 @@ metalbox0
   orig: 32, 16
   offset: 0, 0
   index: -1
-metalbox1
+brambles0
   rotate: false
-  xy: 48, 64
+  xy: 208, 64
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+longfence0
+  rotate: false
+  xy: 144, 64
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+longfence1
+  rotate: false
+  xy: 208, 80
   size: 32, 16
   orig: 32, 16
   offset: 0, 0

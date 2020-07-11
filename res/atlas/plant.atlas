@@ -1,40 +1,54 @@
 
-penguin.png
-size: 256,64
+plant.png
+size: 256,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 idle0
   rotate: false
-  xy: 104, 2
+  xy: 96, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-move1
+idle1
   rotate: false
-  xy: 2, 2
+  xy: 128, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-move2
+idle2
   rotate: false
-  xy: 36, 2
+  xy: 160, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 move0
   rotate: false
-  xy: 36, 2
+  xy: 192, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+move1
+  rotate: false
+  xy: 0, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+move2
+  rotate: false
+  xy: 32, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 move3
   rotate: false
-  xy: 70, 2
+  xy: 64, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
