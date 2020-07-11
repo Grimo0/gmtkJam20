@@ -39,11 +39,17 @@ class Entity {
 		invalidateDebugBounds = true;
 		return hei = v;
 	}
-	public var radius(default, set) = Const.GRID * 0.5;
+	public var wid(default, set) : Float = Const.GRID;
+	inline function set_wid(v) {
+		invalidateDebugBounds = true;
+		return wid = v;
+	}
+	public var radius(default, set) : Float = Const.GRID;
 	inline function set_radius(v) {
 		invalidateDebugBounds = true;
 		return radius = v;
 	}
+	public var collide = true;
 
 	// Movements
 	public var dx = 0.;
@@ -55,27 +61,13 @@ class Entity {
 	public var dyTotal(get, never) : Float;
 	inline function get_dyTotal() return dy + bdy;
 
-	public var frictX = 0.82;
-	public var frictY = 0.82;
+	public var frict = 0.82;
 	public var bumpFrict = 0.93;
-
-	public var dir(default, set) = 1;
-	inline function set_dir(v) {
-		return dir = v > 0 ? 1 : v < 0 ? -1 : dir;
-	}
 
 	public var footX(get, never) : Float;
 	inline function get_footX() return (cx + xr) * Const.GRID;
 	public var footY(get, never) : Float;
 	inline function get_footY() return (cy + yr) * Const.GRID;
-	public var headX(get, never) : Float;
-	inline function get_headX() return footX;
-	public var headY(get, never) : Float;
-	inline function get_headY() return footY - hei;
-	public var centerX(get, never) : Float;
-	inline function get_centerX() return footX;
-	public var centerY(get, never) : Float;
-	inline function get_centerY() return footY - hei * 0.5;
 	public var prevFrameFootX : Float = -Const.INFINITE;
 	public var prevFrameFootY : Float = -Const.INFINITE;
 
@@ -113,7 +105,7 @@ class Entity {
 		baseColor = new h3d.Vector();
 		blinkColor = new h3d.Vector();
 		spr.colorMatrix = colorMatrix = h3d.Matrix.I();
-		spr.setCenterRatio(0.5, 1);
+		spr.setCenterRatio(0.5, 0.5);
 
 		if (ui.Console.ME.hasFlag("bounds"))
 			enableBounds();
@@ -165,10 +157,6 @@ class Entity {
 	public function is<T : Entity>(c : Class<T>) return Std.is(this, c);
 
 	public function as<T : Entity>(c : Class<T>) : T return Std.downcast(this, c);
-
-	public inline function dirTo(e : Entity) return e.centerX < centerX ? -1 : 1;
-
-	public inline function dirToAng() return dir == 1 ? 0. : M.PI;
 
 	public inline function getMoveAng() return Math.atan2(dyTotal, dxTotal);
 
@@ -249,29 +237,16 @@ class Entity {
 		var c = Color.makeColorHsl((uid % 20) / 20, 1, 1);
 		debugBounds.clear();
 
-		// Radius
-		debugBounds.lineStyle(1, c, 0.8);
-		debugBounds.drawCircle(0, -radius, radius);
-
-		// Hei
+		// Box
 		debugBounds.lineStyle(1, c, 0.5);
-		debugBounds.drawRect(-radius, -hei, radius * 2, hei);
+		debugBounds.drawRect(-wid / 2, -hei / 2, wid, hei);
 
-		// Feet
-		debugBounds.lineStyle(1, 0xffffff, 1);
-		var d = Const.GRID * 0.2;
-		debugBounds.moveTo(-d, 0);
-		debugBounds.lineTo(d, 0);
-		debugBounds.moveTo(0, -d);
-		debugBounds.lineTo(0, 0);
-
-		// Center
+		// Radius
 		debugBounds.lineStyle(1, c, 0.3);
-		debugBounds.drawCircle(0, -hei * 0.5, 3);
+		debugBounds.drawCircle(0, 0, radius);
 
-		// Head
-		debugBounds.lineStyle(1, c, 0.3);
-		debugBounds.drawCircle(0, headY - footY, 3);
+		debugBounds.lineStyle(1, c, 0.5);
+		debugBounds.drawCircle(0, 0, 1);
 	}
 
 	function chargeAction(id : String, sec : Float, cb : Void->Void) {
@@ -344,10 +319,10 @@ class Entity {
 	}
 
 	public function postUpdate() {
-		spr.x = (cx + xr) * Const.GRID;
-		spr.y = (cy + yr) * Const.GRID;
+		spr.x = footX - wid / 2;
+		spr.y = footY - hei / 2;
 		spr.rotation = angle;
-		spr.scaleX = dir * sprScaleX * sprSquashX;
+		spr.scaleX = sprScaleX * sprSquashX;
 		spr.scaleY = sprScaleY * sprSquashY;
 		spr.visible = visible;
 
@@ -398,7 +373,14 @@ class Entity {
 		while (steps > 0) {
 			xr += step;
 
-			// [ add X collisions checks here ]
+			// X collisions checks
+			if (xr >= 0.5 && level.hasCollision(cx + 1, cy)) {
+				xr = 0.5;
+				dx = 0;
+			} else if (xr <= 0.5 && level.hasCollision(cx - 1, cy)) {
+				xr = 0.5;
+				dx = 0;
+			}
 
 			while (xr > 1) {
 				xr--;
@@ -410,7 +392,7 @@ class Entity {
 			}
 			steps--;
 		}
-		dx *= Math.pow(frictX, tmod);
+		dx *= Math.pow(frict, tmod);
 		bdx *= Math.pow(bumpFrict, tmod);
 		if (M.fabs(dx) <= 0.0005 * tmod)
 			dx = 0;
@@ -423,7 +405,14 @@ class Entity {
 		while (steps > 0) {
 			yr += step;
 
-			// [ add Y collisions checks here ]
+			// Y collisions checks
+			if (yr >= 0.5 && level.hasCollision(cx, cy + 1)) {
+				yr = 0.5;
+				dy = 0;
+			} else if (yr <= 0.5 && level.hasCollision(cx, cy - 1)) {
+				yr = 0.5;
+				dy = 0;
+			}
 
 			while (yr > 1) {
 				yr--;
@@ -435,7 +424,7 @@ class Entity {
 			}
 			steps--;
 		}
-		dy *= Math.pow(frictY, tmod);
+		dy *= Math.pow(frict, tmod);
 		bdy *= Math.pow(bumpFrict, tmod);
 		if (M.fabs(dy) <= 0.0005 * tmod)
 			dy = 0;

@@ -1,20 +1,28 @@
+import dn.CdbHelper;
+
 class Level extends dn.Process {
 	public var game(get, never) : Game;
 	inline function get_game() return Game.ME;
 	public var fx(get, never) : Fx;
 	inline function get_fx() return game.fx;
 
-	public var currLevel : Data.Levels; // FIXME: Replace with your data level type
+	public var current(default, null) : Data.Levels;
+	public var currentIdx(default, null) : Int;
 
 	public var wid(get, never) : Int;
-	inline function get_wid() return currLevel.width;
+	inline function get_wid() return current.width;
 
 	public var hei(get, never) : Int;
-	inline function get_hei() return currLevel.height;
+	inline function get_hei() return current.height;
+
+	public var collMap : Map<Int, Bool>;
 
 	public function new() {
 		super(Game.ME);
+
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
+
+		collMap = new Map();
 	}
 
 	public inline function isValid(cx, cy)
@@ -24,50 +32,59 @@ class Level extends dn.Process {
 		return cx + cy * wid;
 
 	public inline function hasCollision(cx, cy) : Bool
-		return false; // TODO: collision with entities and obstacles
+		return !isValid(cx, cy) ? true : collMap.get(coordId(cx, cy));
+
+	public function setColl(x, y, v : Bool) {
+		collMap.set(coordId(x, y), v);
+	}
 
 	override function init() {
 		super.init();
-		
+
 		if (root != null)
 			initLevel();
 	}
 
 	public function setLevel(id : Data.LevelsKind) {
-		currLevel = Data.levels.get(id);
+		current = Data.levels.get(id);
+		currentIdx = 0;
+		for (l in Data.levels.all) {
+			if (l.id == current.id) {
+				break;
+			}
+			currentIdx++;
+		}
+
 		initLevel();
 	}
 
 	public function initLevel() {
-		var levelIdx = 0;
-		for (l in Data.levels.all) {
-			if (l.id == currLevel.id) {
-				break;
-			}
-			levelIdx++;
-		}
-
-		var cdb = new h2d.CdbLevel(Data.levels, levelIdx);
+		var cdb = new h2d.CdbLevel(Data.levels, currentIdx);
 		cdb.redraw();
 
 		// Add level layers to the root
+		var lIdx = 0;
 		for (layer in cdb.layers) {
+			if (layer.name == "collision") {
+				for (t in CdbHelper.getLayerPoints(current.layers[lIdx].data, wid))
+					setColl(t.cx, t.cy, true);
+			}
 			root.addChild(layer.content);
+			lIdx++;
 		}
 
 		// Update camera zoom
-		Const.SCALE = Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID);
+		Const.SCALE = Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * cdb.layers[0].tileset.stride);
 	}
 
 	override function onResize() {
 		super.onResize();
-		
+
 		// Update camera zoom
 		Const.SCALE = Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID);
 	}
 
-	public function render() {
-	}
+	public function render() {}
 
 	override function postUpdate() {
 		super.postUpdate();
