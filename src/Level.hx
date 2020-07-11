@@ -11,7 +11,6 @@ class Level extends dn.Process {
 
 	public var wid(get, never) : Int;
 	inline function get_wid() return current.width;
-
 	public var hei(get, never) : Int;
 	inline function get_hei() return current.height;
 
@@ -62,6 +61,8 @@ class Level extends dn.Process {
 		var cdb = new h2d.CdbLevel(Data.levels, currentIdx);
 		cdb.redraw();
 
+		collMap.clear();
+
 		// Add level layers to the root
 		var lIdx = 0;
 		for (layer in cdb.layers) {
@@ -74,14 +75,20 @@ class Level extends dn.Process {
 		}
 
 		// Update camera zoom
-		Const.SCALE = Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * cdb.layers[0].tileset.stride);
+		Const.SCALE = Math.floor(Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
+
+		for (t in current.triggers) {
+			if (t.id == Data.Levels_triggers_id.Start) {
+				Game.ME.hero.setPosCell(t.x, t.y);
+			}
+		}
 	}
 
 	override function onResize() {
 		super.onResize();
 
 		// Update camera zoom
-		Const.SCALE = Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID);
+		Const.SCALE = Math.floor(Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
 	}
 
 	public function render() {}
