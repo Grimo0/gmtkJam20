@@ -14,7 +14,7 @@ class Game extends Process {
 	public var hud : ui.Hud;
 	public var hero : Hero;
 	public var levelTimer : Float;
-	public var levelTimerAffiche : Float;
+	public var levelTimerDisplay : Float;
 
 	var levelTimerHud = new h2d.Text(hxd.res.DefaultFont.get());
 	var curGameSpeed = 1.0;
@@ -185,9 +185,9 @@ class Game extends Process {
 		}
 
 		levelTimer += tmod;
-		levelTimerAffiche = Math.ceil(levelTimer)/100;
+		levelTimerDisplay = Math.ceil(levelTimer)/100;
 
-		levelTimerHud.text = levelTimerAffiche + "s";
+		levelTimerHud.text = levelTimerDisplay + "s";
 	}
 
 	override function postUpdate() {
