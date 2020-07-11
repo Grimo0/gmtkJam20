@@ -30,10 +30,10 @@ class Game extends Process {
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		camera = new Camera();
-		level = new Level();
 		fx = new Fx();
 		hud = new ui.Hud();
-
+		level = new Level();
+		
 		hero = new en.Hero(Data.AnimalKind.penguin, Assets.penguin);
 
 		level.setLevel(Data.LevelsKind.first_area);
@@ -152,10 +152,12 @@ class Game extends Process {
 				if (ca.isKeyboardPressed(Key.PGUP)) {
 					var newIdx = level.currentIdx == 0 ? Data.levels.all.length - 1 : level.currentIdx - 1;
 					level.setLevel(Data.levels.all[newIdx].id);
+					level.root.add(hero.spr, Const.DP_MAIN);
 				}
 				if (ca.isKeyboardPressed(Key.PGDOWN)) {
 					var newIdx = level.currentIdx == Data.levels.all.length - 1 ? 0 : level.currentIdx + 1;
 					level.setLevel(Data.levels.all[newIdx].id);
+					level.root.add(hero.spr, Const.DP_MAIN);
 				}
 			} else {
 				if (ca.isKeyboardPressed(Key.PGUP)) {

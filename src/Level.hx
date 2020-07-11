@@ -19,9 +19,9 @@ class Level extends dn.Process {
 	var breakables : Map<Int, Breakable>;
 
 	public function new() {
-		super(Game.ME);
+		super(game);
 
-		createRootInLayers(Game.ME.scroller, Const.DP_BG);
+		createRootInLayers(game.scroller, Const.DP_BG);
 
 		collMap = new Map();
 		breakables = new Map();
@@ -74,6 +74,8 @@ class Level extends dn.Process {
 		cdb.redraw();
 
 		collMap.clear();
+		breakables.clear();
+		root.removeChildren();
 
 		// Add level layers to the root & add collisions
 		var lIdx = 0;
@@ -88,24 +90,26 @@ class Level extends dn.Process {
 
 		for (o in current.objects) {
 			var b = new Breakable(o.object, o.x, o.y, Assets.objects);
+			root.add(b.spr, Const.DP_MAIN);
 			setBreakable(o.x, o.y, b);
 		}
 
 		for (t in current.triggers) {
 			if (t.id == Start) {
-				Game.ME.hero.setPosCell(t.x, t.y);
+				game.hero.setPosCell(t.x, t.y);
+				root.add(game.hero.spr, Const.DP_MAIN);
 			}
 		}
 
 		// Update camera zoom
-		Const.SCALE = Math.floor(Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
+		Const.SCALE = Math.floor(game.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
 	}
 
 	override function onResize() {
 		super.onResize();
 
 		// Update camera zoom
-		Const.SCALE = Math.floor(Game.ME.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
+		Const.SCALE = Math.floor(game.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
 	}
 
 	public function render() {}

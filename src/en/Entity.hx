@@ -104,7 +104,6 @@ class Entity {
 			setPosCell(x, y);
 
 		spr = new HSprite(spriteLib != null ? spriteLib : Assets.tiles);
-		level.root.add(spr, Const.DP_MAIN);
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
 		blinkColor = new h3d.Vector();
