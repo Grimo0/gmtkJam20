@@ -51,9 +51,10 @@ class Hud extends dn.Process {
 
 	var flow : h2d.Flow;
 	var invalidated = true;
-
-	public var scoreTf : h2d.Text;
 	
+	var dureePopup : Float;
+	var scoreTf : h2d.Text;
+	var comboUiLayer : h2d.Layers;
 
 	public function new() {
 		super(Game.ME);
@@ -62,22 +63,28 @@ class Hud extends dn.Process {
 		root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
 		flow = new h2d.Flow(root);
+
+		comboUiLayer = new h2d.Layers();
+		root.add(comboUiLayer, Const.DP_UI);
+
+		dureePopup = -1;
 	}
 
 	public function pointsGain(x=0, y=0, pts=1000) {
-		game.dureePopup = 0.0;
+		dureePopup = 0.0;
 
 		scoreTf = new h2d.Text(hxd.res.DefaultFont.get());
 		scoreTf.scale(3);
 		scoreTf.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
 		scoreTf.text = "+" + pts + " points";
 		scoreTf.textAlign = Center;
+		//scoreTf.textColor = Math.random();
 		scoreTf.x = x;
 		scoreTf.y = y;
+		scoreTf.rotation = Math.random()-0.5;
 		scoreTf.addShader(new SineDeformShader(0.1,0.002,3));
-		Game.ME.scroller.add(scoreTf, Const.DP_UI);
+		comboUiLayer.add(scoreTf, Const.DP_UI);
 		// destroy message after few seconds
-		trace("ok1");
 	}
 
 	override function onResize() {
@@ -98,5 +105,18 @@ class Hud extends dn.Process {
 			render();
 		}
 
+	}
+
+	override function update() {
+		super.update();
+		
+		if (dureePopup >= 0) {
+			dureePopup += tmod;
+		}
+		if (dureePopup > 50) {
+			comboUiLayer.removeChildren();
+
+			dureePopup = -1;
+		}
 	}
 }
