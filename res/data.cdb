@@ -176,7 +176,7 @@
 				},
 				{
 					"id": "car",
-					"type": 0,
+					"type": 1,
 					"objectHealth": 3,
 					"isDestructible": true,
 					"img": {
@@ -279,7 +279,19 @@
 					"type": 4,
 					"objectHealth": 1,
 					"isDestructible": true,
-					"rotation": 0
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 15,
+						"y": 4
+					},
+					"destructedImg": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 15,
+						"y": 5
+					}
 				},
 				{
 					"id": "bush",
@@ -314,6 +326,12 @@
 						"size": 16,
 						"x": 11,
 						"y": 4
+					},
+					"destructedImg": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 12,
+						"y": 5
 					}
 				},
 				{
@@ -485,7 +503,14 @@
 						"y": 4,
 						"width": 2
 					},
-					"pointsToPlayer": 75
+					"pointsToPlayer": 75,
+					"destructedImg": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 13,
+						"y": 5,
+						"width": 2
+					}
 				}
 			],
 			"separators": [],
