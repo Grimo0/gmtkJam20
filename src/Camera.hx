@@ -7,6 +7,7 @@ class Camera extends dn.Process {
 	public var dx : Float;
 	public var dy : Float;
 	public var frict : Float;
+	public var bumpFrict : Float;
 	public var wid(get, never) : Int;
 	function get_wid() return M.ceil(Game.ME.w() / Const.SCALE);
 	public var hei(get, never) : Int;
@@ -21,7 +22,8 @@ class Camera extends dn.Process {
 		super(Game.ME);
 		x = y = 0;
 		dx = dy = 0;
-		frict = 0.93;
+		frict = 0.96;
+		bumpFrict = 0.90;
 	}
 
 	public function trackTarget(e : Entity, immediate : Bool) {
@@ -107,8 +109,8 @@ class Camera extends dn.Process {
 				scroller.y = hei * 0.5 - level.hei * 0.5 * Const.GRID;
 
 			// Bumps friction
-			bumpOffX *= Math.pow(0.75, tmod);
-			bumpOffY *= Math.pow(0.75, tmod);
+			bumpOffX *= Math.pow(bumpFrict, tmod);
+			bumpOffY *= Math.pow(bumpFrict, tmod);
 
 			// Bump
 			scroller.x += bumpOffX;

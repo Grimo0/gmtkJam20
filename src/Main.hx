@@ -22,7 +22,9 @@ class Main extends dn.Process {
 
 		// Assets & data init
 		Assets.init();
+		#if debug
 		new ui.Console(Assets.fontTiny, s);
+		#end
 		Lang.init("en");
 
 		// Game controller
