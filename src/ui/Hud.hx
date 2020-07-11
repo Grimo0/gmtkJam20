@@ -52,6 +52,9 @@ class Hud extends dn.Process {
 	var flow : h2d.Flow;
 	var invalidated = true;
 
+	public var scoreTf : h2d.Text;
+	
+
 	public function new() {
 		super(Game.ME);
 
@@ -62,17 +65,19 @@ class Hud extends dn.Process {
 	}
 
 	public function pointsGain(x=0, y=0, pts=1000) {
-		var tf = new h2d.Text(hxd.res.DefaultFont.get());
-		tf.scale(3);
-		tf.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
-		tf.text = "+" + pts + " points";
-		tf.textAlign = Center;
-		tf.x = x;
-		tf.y = y;
-		tf.addShader(new SineDeformShader(0.1,0.002,3));
-		Game.ME.scroller.add(tf, Const.DP_UI);
+		game.dureePopup = 0.0;
+
+		scoreTf = new h2d.Text(hxd.res.DefaultFont.get());
+		scoreTf.scale(3);
+		scoreTf.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
+		scoreTf.text = "+" + pts + " points";
+		scoreTf.textAlign = Center;
+		scoreTf.x = x;
+		scoreTf.y = y;
+		scoreTf.addShader(new SineDeformShader(0.1,0.002,3));
+		Game.ME.scroller.add(scoreTf, Const.DP_UI);
 		// destroy message after few seconds
-		trace("ok");
+		trace("ok1");
 	}
 
 	override function onResize() {

@@ -386,6 +386,7 @@ class Entity {
 				bdx -= bumpSpeed * tmod;
 				xr = 1 - cellCheckR;
 				dx = 0;
+				hud.pointsGain();
 			} else if (xr <= cellCheckR && level.hasCollision(cx - cellCheckD, cy)) {
 				bdx += bumpSpeed * tmod;
 				xr = cellCheckR;
