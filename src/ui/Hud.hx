@@ -86,7 +86,7 @@ class Hud extends dn.Process {
 
 		dureePopup = -1;
 
-		couleurs = [0xFF0000, 0x555555, 0x181818, 0xD1D1D1, 0x535353, 0xFFFFFF, 0x626262, 0x363636, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF];
+		couleurs = [0xff4017, 0x4fff17, 0x17fffb, 0x1753ff, 0xa717ff, 0xFFFFFF, 0xfbff17, 0xff17f8, 0xffb917, 0xFFFFFF, 0xFFFFFF];
 	}
 
 	public function pointsGain(x=0, y=0, pts=1000) {
@@ -104,7 +104,7 @@ class Hud extends dn.Process {
 		scoreTf.rotation = Math.random()-0.5;
 		scoreTf.addShader(new SineDeformShader(0.1,0.002,3));
 		for (l in comboUiLayer) {
-			l.alpha -= 0.1;
+			l.alpha -= 0.2;
 			//l.filter = new ColorMatrix(Gradient);
 		}
 		comboUiLayer.add(scoreTf, Const.DP_UI);
