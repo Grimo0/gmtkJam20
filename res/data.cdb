@@ -54,7 +54,7 @@
 					"name": "id"
 				},
 				{
-					"typeStr": "5:destructible,explosive,trap,cage,obstacle,projectile,teleguided projectile,power up,human",
+					"typeStr": "5:destructible,explosive,trap,cage,obstacle,projectile,teleguidedprojectile,powerup,human",
 					"name": "type"
 				},
 				{
