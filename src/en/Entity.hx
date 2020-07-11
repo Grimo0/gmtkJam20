@@ -33,6 +33,7 @@ class Entity {
 	public var cy = 0;
 	public var xr = 0.5;
 	public var yr = 1.0;
+	public var angle = 0.;
 	public var hei(default, set) : Float = Const.GRID;
 	inline function set_hei(v) {
 		invalidateDebugBounds = true;
@@ -345,6 +346,7 @@ class Entity {
 	public function postUpdate() {
 		spr.x = (cx + xr) * Const.GRID;
 		spr.y = (cy + yr) * Const.GRID;
+		spr.rotation = angle;
 		spr.scaleX = dir * sprScaleX * sprSquashX;
 		spr.scaleY = sprScaleY * sprSquashY;
 		spr.visible = visible;

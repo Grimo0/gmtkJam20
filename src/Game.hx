@@ -34,6 +34,10 @@ class Game extends Process {
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
+
+		level.setLevel(Data.LevelsKind.first_area);
+
+		new en.Hero(5,5);
 	}
 
 	public function onCdbReload() {}

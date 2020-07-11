@@ -39,7 +39,15 @@ class Level extends dn.Process {
 	}
 
 	public function initLevel() {
-		var cdb = new h2d.CdbLevel(Data.levels, 0);
+		var levelIdx = 0;
+		for (l in Data.levels.all) {
+			if (l.id == currLevel.id) {
+				break;
+			}
+			levelIdx++;
+		}
+
+		var cdb = new h2d.CdbLevel(Data.levels, levelIdx);
 		cdb.redraw();
 
 		// Add level layers to the root
