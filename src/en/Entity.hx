@@ -34,7 +34,7 @@ class Entity {
 	public var cx = 0;
 	public var cy = 0;
 	public var xr = 0.5;
-	public var yr = 1.0;
+	public var yr = 0.5;
 	public var angle = 0.;
 	public var hei(default, set) : Float = Const.GRID;
 	inline function set_hei(v) {
@@ -91,7 +91,7 @@ class Entity {
 	var debugBounds : Null<h2d.Graphics>;
 	var invalidateDebugBounds = false;
 
-	public function new(?x : Int, ?y : Int) {
+	public function new(?x : Int, ?y : Int, ?spriteLib : SpriteLib) {
 		uid = Const.NEXT_UNIQ;
 		ALL.push(this);
 
@@ -101,7 +101,7 @@ class Entity {
 		if (x != null && y != null)
 			setPosCell(x, y);
 
-		spr = new HSprite(Assets.tiles);
+		spr = new HSprite(spriteLib != null ? spriteLib : Assets.tiles);
 		Game.ME.scroller.add(spr, Const.DP_MAIN);
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
@@ -321,8 +321,8 @@ class Entity {
 	}
 
 	public function postUpdate() {
-		spr.x = footX - wid / 2;
-		spr.y = footY - hei / 2;
+		spr.x = footX;
+		spr.y = footY;
 		spr.rotation = angle;
 		spr.scaleX = sprScaleX * sprSquashX;
 		spr.scaleY = sprScaleY * sprSquashY;
@@ -369,6 +369,12 @@ class Entity {
 	public function fixedUpdate() {}
 
 	public function update() {
+		var cellCheckR = M.fabs(radius * 2 / Const.GRID);
+		var cellCheckD = Std.int(cellCheckR - 0.5);
+		cellCheckR -= cellCheckD;
+
+		var bumpSpeed = 0.3;
+		
 		// X
 		var steps = M.ceil(M.fabs(dxTotal * tmod));
 		var step = dxTotal * tmod / steps;
@@ -376,12 +382,13 @@ class Entity {
 			xr += step;
 
 			// X collisions checks
-			if (xr >= 0.5 && level.hasCollision(cx + 1, cy)) {
-				xr = 0.5;
+			if (xr >= 1 - cellCheckR && level.hasCollision(cx + cellCheckD, cy)) {
+				bdx -= bumpSpeed * tmod;
+				xr = 1 - cellCheckR;
 				dx = 0;
-				//hud.pointsGain();
-			} else if (xr <= 0.5 && level.hasCollision(cx - 1, cy)) {
-				xr = 0.5;
+			} else if (xr <= cellCheckR && level.hasCollision(cx - cellCheckD, cy)) {
+				bdx += bumpSpeed * tmod;
+				xr = cellCheckR;
 				dx = 0;
 			}
 
@@ -409,11 +416,13 @@ class Entity {
 			yr += step;
 
 			// Y collisions checks
-			if (yr >= 0.5 && level.hasCollision(cx, cy + 1)) {
-				yr = 0.5;
+			if (yr >= 1 - cellCheckR && level.hasCollision(cx, cy + cellCheckD)) {
+				bdy -= bumpSpeed * tmod;
+				yr = 1 - cellCheckR;
 				dy = 0;
-			} else if (yr <= 0.5 && level.hasCollision(cx, cy - 1)) {
-				yr = 0.5;
+			} else if (yr <= cellCheckR && level.hasCollision(cx, cy - cellCheckD)) {
+				bdy += bumpSpeed * tmod;
+				yr = cellCheckR;
 				dy = 0;
 			}
 

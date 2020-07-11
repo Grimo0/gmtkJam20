@@ -3,15 +3,16 @@ package en;
 class Hero extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
 
-	public function new(?x, ?y) {
-		super(x, y);
-
-		// Some default rendering for our character
-		var g = new h2d.Graphics(spr);
-		g.beginFill(0xff0000);
-		g.drawRect(0, 0, wid, hei / 4);
+	public function new(?x, ?y, ?spriteLib) {
+		super(x, y, spriteLib);
 
 		ca = Main.ME.controller.createAccess("hero"); // creates an instance of controller
+		
+		spr.anim.registerStateAnim("idle", 0);
+		spr.anim.registerStateAnim("move", 1, function() return dx != 0 || dy != 0);
+		// spr.anim.setStateAnimSpeed("move", );
+		wid = spr.tile.width;
+		hei = spr.tile.height;
 	}
 
 	override function dispose() { // call on garbage collection
@@ -22,7 +23,8 @@ class Hero extends Entity {
 	override function update() { // the Entity main loop
 		var moveLikeVehicule = true;
 		var rotationSpeed = 0.02;
-		var movementSpeed = 0.01;
+		var movementSpeed = 0.1;
+		var backSpeed = 0.001;
 
 		if (moveLikeVehicule) {
 			// Vehicule movement : Up accelerates in the current angle, right and left change that angle
@@ -39,8 +41,8 @@ class Hero extends Entity {
 				dy += Math.sin(angle) * movementSpeed * tmod;
 			}
 			if (ca.downDown() || ca.isKeyboardDown(hxd.Key.DOWN)) {
-				dx -= Math.cos(angle) * movementSpeed * tmod;
-				dy -= Math.sin(angle) * movementSpeed * tmod;
+				dx -= Math.cos(angle) * backSpeed * tmod;
+				dy -= Math.sin(angle) * backSpeed * tmod;
 			}
 		} else {
 			// Normal movement (haut bas gauche droite)

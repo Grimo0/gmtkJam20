@@ -34,10 +34,9 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 
-		level.setLevel(Data.LevelsKind.first_area);
+		hero = new en.Hero(10, 10, Assets.penguin);
 
-		// TODO: Remove after test and put in the real game loop
-		hero = new en.Hero(10, 10);
+		level.setLevel(Data.LevelsKind.first_area);
 
 		camera.trackTarget(hero, true);
 
