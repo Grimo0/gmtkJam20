@@ -89,11 +89,11 @@ class Hud extends dn.Process {
 		couleurs = [0xff4017, 0x4fff17, 0x17fffb, 0x1753ff, 0xa717ff, 0xFFFFFF, 0xfbff17, 0xff17f8, 0xffb917, 0xFFFFFF, 0xFFFFFF];
 	}
 
-	public function pointsGain(x=0, y=0, pts=1000) {
+	public function pointsGain(x=70, y=50, pts=1000) {
 		dureePopup = 0.0;
 
 		scoreTf = new h2d.Text(hxd.res.DefaultFont.get());
-		scoreTf.scale(3);
+		scoreTf.scale(2);
 		scoreTf.dropShadow = { dx : 0.5, dy : 0.5, color : 0xFF0000, alpha : 0.8 };
 		scoreTf.text = "+" + pts + " points";
 		scoreTf.textAlign = Center;
