@@ -15,6 +15,7 @@ class Game extends Process {
 	public var hero : Hero;
 	public var levelTimer : Float;
 	public var levelTimerDisplay : Float;
+	public var dureePopup : Float;
 
 	var levelTimerHud = new h2d.Text(hxd.res.DefaultFont.get());
 	var curGameSpeed = 1.0;
@@ -36,6 +37,7 @@ class Game extends Process {
 		level = new Level();
 		fx = new Fx();
 		hud = new ui.Hud();
+		dureePopup = 0.0;
 
 		hero = new en.Hero(Data.AnimalKind.penguin, Assets.penguin);
 
@@ -184,10 +186,15 @@ class Game extends Process {
 				Main.ME.startGame();
 		}
 
-		levelTimer += tmod;
+		levelTimer += utmod;
 		levelTimerDisplay = Math.ceil(levelTimer)/100;
 
 		levelTimerHud.text = levelTimerDisplay + "s";
+
+		dureePopup += tmod;
+		if (dureePopup > 50) {
+			Game.ME.scroller.removeChild(hud.scoreTf);
+		}
 	}
 
 	override function postUpdate() {
