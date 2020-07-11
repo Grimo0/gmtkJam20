@@ -39,6 +39,10 @@
 				{
 					"typeStr": "4",
 					"name": "backSpeed"
+				},
+				{
+					"typeStr": "3",
+					"name": "lifePoints"
 				}
 			],
 			"lines": [
@@ -50,7 +54,8 @@
 					"accelerationSpeed": 0.01,
 					"decelerationSpeed": 0.01,
 					"radius": 13,
-					"backSpeed": 0.01
+					"backSpeed": 0.01,
+					"lifePoints": 100
 				}
 			],
 			"separators": [],
@@ -92,7 +97,7 @@
 					"name": "isDestructible"
 				},
 				{
-					"typeStr": "4",
+					"typeStr": "3",
 					"name": "damageToPlayer",
 					"opt": true
 				},
@@ -191,16 +196,35 @@
 					"isDestructible": true,
 					"damageToPlayer": 10,
 					"pointsToPlayer": 250,
-					"rotation": 0
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 9,
+						"y": 5,
+						"width": 2
+					}
 				},
 				{
 					"id": "computer",
-					"type": 1,
+					"type": 0,
 					"objectHealth": 1,
 					"isDestructible": true,
 					"damageToPlayer": 10,
 					"pointsToPlayer": 100,
-					"rotation": 0
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 11,
+						"y": 5
+					},
+					"destructedImg": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 11,
+						"y": 6
+					}
 				},
 				{
 					"id": "animalcage",
@@ -242,7 +266,13 @@
 					"isDestructible": false,
 					"damageToPlayer": 20,
 					"pointsToPlayer": -30,
-					"rotation": 0
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 12,
+						"y": 4
+					}
 				},
 				{
 					"id": "wall",
@@ -278,7 +308,13 @@
 					"objectHealth": 1,
 					"isDestructible": true,
 					"rotation": 0,
-					"pointsToPlayer": 25
+					"pointsToPlayer": 25,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 11,
+						"y": 4
+					}
 				},
 				{
 					"id": "longbarricade",
@@ -308,7 +344,13 @@
 					"objectHealth": 0,
 					"isDestructible": true,
 					"pointsToPlayer": 150,
-					"rotation": 0
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 1,
+						"y": 8
+					}
 				},
 				{
 					"id": "mushroom",
@@ -316,7 +358,13 @@
 					"objectHealth": 0,
 					"isDestructible": true,
 					"pointsToPlayer": 150,
-					"rotation": 0
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 0,
+						"y": 8
+					}
 				},
 				{
 					"id": "waterdrinker",
@@ -408,6 +456,36 @@
 					"damageToPlayer": 20,
 					"pointsToPlayer": 100,
 					"rotation": 0
+				},
+				{
+					"id": "brambles",
+					"type": 2,
+					"objectHealth": 0,
+					"isDestructible": false,
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 13,
+						"y": 4
+					},
+					"damageToPlayer": 20,
+					"pointsToPlayer": -30
+				},
+				{
+					"id": "longfence",
+					"type": 0,
+					"objectHealth": 1,
+					"isDestructible": true,
+					"rotation": 0,
+					"img": {
+						"file": "atlas/spritesheet.png",
+						"size": 16,
+						"x": 9,
+						"y": 4,
+						"width": 2
+					},
+					"pointsToPlayer": 75
 				}
 			],
 			"separators": [],
