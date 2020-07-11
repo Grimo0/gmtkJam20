@@ -1,3 +1,4 @@
+import en.Hero;
 import en.Entity;
 import dn.Process;
 import hxd.Key;
@@ -11,6 +12,7 @@ class Game extends Process {
 	public var scroller : h2d.Layers;
 	public var level : Level;
 	public var hud : ui.Hud;
+	public var hero : Hero;
 
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, {id : String, t : Float, f : Float}> = new Map();
@@ -32,12 +34,19 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 
-		Process.resizeAll();
-		trace(Lang.t._("Game is ready."));
-
 		level.setLevel(Data.LevelsKind.first_area);
 
-		new en.Hero(5,5);
+		// TODO: Remove after test and put in the real game loop
+		hero = new en.Hero(10, 10);
+
+		camera.trackTarget(hero, true);
+
+		Process.resizeAll();
+		trace("Game is ready.");
+		#if debug
+		trace("Press SHIFT to display levels, then while down, press PGUP or PGDOWN");
+		trace("Press PGUP or PGDOWN to change the scale");
+		#end
 	}
 
 	public function onCdbReload() {}
@@ -127,6 +136,37 @@ class Game extends Process {
 					trace(Lang.t._("Press ESCAPE again to exit."));
 				else
 					hxd.System.exit();
+			}
+			#end
+
+			#if debug
+			if (ca.isKeyboardPressed(Key.B))
+				ui.Console.ME.setFlag("bounds", !ui.Console.ME.hasFlag("bounds"));
+			if (ca.isKeyboardPressed(Key.SHIFT)) {
+				ui.Console.ME.runCommand("cls");
+				for (l in Data.levels.all) {
+					ui.Console.ME.log(l.id.toString(), l == level.current ? 0x00ff00 : null);
+				}
+			}
+
+			if (ca.isKeyboardDown(Key.SHIFT)) {
+				if (ca.isKeyboardPressed(Key.PGUP)) {
+					var newIdx = level.currentIdx == 0 ? Data.levels.all.length - 1 : level.currentIdx - 1;
+					level.setLevel(Data.levels.all[newIdx].id);
+				}
+				if (ca.isKeyboardPressed(Key.PGDOWN)) {
+					var newIdx = level.currentIdx == Data.levels.all.length - 1 ? 0 : level.currentIdx + 1;
+					level.setLevel(Data.levels.all[newIdx].id);
+				}
+			} else {
+				if (ca.isKeyboardPressed(Key.PGUP)) {
+					Const.SCALE++;
+					scroller.setScale(Const.SCALE);
+				}
+				if (ca.isKeyboardPressed(Key.PGDOWN)) {
+					Const.SCALE--;
+					scroller.setScale(Const.SCALE);
+				}
 			}
 			#end
 
