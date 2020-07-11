@@ -184,7 +184,7 @@ class Game extends Process {
 				Main.ME.startGame();
 		}
 
-		levelTimer += tmod;
+		levelTimer += utmod;
 		levelTimerDisplay = Math.ceil(levelTimer)/100;
 
 		levelTimerHud.text = levelTimerDisplay + "s";
