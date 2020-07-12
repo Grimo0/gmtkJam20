@@ -139,14 +139,14 @@ wall1
   index: -1
 bush0
   rotate: false
-  xy: 126, 32
+  xy: 128, 32
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 bush1
   rotate: false
-  xy: 126, 48
+  xy: 128, 48
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
