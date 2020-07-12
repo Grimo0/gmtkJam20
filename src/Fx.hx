@@ -12,6 +12,8 @@ class Fx extends dn.Process {
 
 	public var pool : ParticlePool;
 
+	public var spriteLib : SpriteLib;
+
 	public var bgAddSb : h2d.SpriteBatch;
 	public var bgNormalSb : h2d.SpriteBatch;
 	public var topAddSb : h2d.SpriteBatch;
@@ -20,6 +22,8 @@ class Fx extends dn.Process {
 	public function new() {
 		super(Game.ME);
 
+		/* spriteLib = Assets.tiles;
+		
 		pool = new ParticlePool(Assets.tiles.tile, 2048, Const.FPS);
 
 		bgAddSb = new h2d.SpriteBatch(Assets.tiles.tile);
@@ -38,7 +42,7 @@ class Fx extends dn.Process {
 
 		topNormalSb = new h2d.SpriteBatch(Assets.tiles.tile);
 		game.scroller.add(topNormalSb, Const.DP_FX_FRONT);
-		topNormalSb.hasRotationScale = true;
+		topNormalSb.hasRotationScale = true; */
 	}
 
 	override public function onDispose() {
@@ -72,7 +76,7 @@ class Fx extends dn.Process {
 	}
 
 	public inline function getTile(id : String) : h2d.Tile {
-		return Assets.tiles.getTileRandom(id);
+		return spriteLib.getTileRandom(id);
 	}
 
 	public function killAll() {
