@@ -30,6 +30,7 @@ class Hero extends Entity {
 		radius = data.radius;
 		bumpStrength = data.bumpStrength;
 		speed = data.minSpeed;
+		frict = data.decelerationSpeed;
 		moved = false;
 		
 		for (t in level.current.triggers) {
