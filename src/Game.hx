@@ -200,6 +200,8 @@ class Game extends Process {
 		// Update slow-motions
 		updateSlowMos();
 		setTimeMultiplier((0.2 + 0.8 * curGameSpeed) * (ucd.has("stopFrame") ? 0.3 : 1));
-		Assets.tiles.tmod = tmod;
+		Assets.objects.tmod = tmod;
+		Assets.penguin.tmod = tmod;
+		Assets.plant.tmod = tmod;
 	}
 }
