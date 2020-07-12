@@ -83,8 +83,8 @@ class Hud extends dn.Process {
 			color: 0xFF0000,
 			alpha: 0.8
 		};
-		comboTxt.x = 150;
-		comboTxt.y = 190;
+		comboTxt.x = 40;//150
+		comboTxt.y = 200;
 		comboTxt.rotation = -0.1;
 		root.add(comboTxt, Const.DP_UI);
 
@@ -101,7 +101,7 @@ class Hud extends dn.Process {
 		timerTxt.rotation = 0.12;
 		root.add(timerTxt, Const.DP_UI);
 
-		// Combo ui
+		// score popups ui
 		popupTime = 0;
 		comboUiLayer = new h2d.Layers();
 		comboUiLayer.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
@@ -225,7 +225,7 @@ class Hud extends dn.Process {
 				numberCombo += 1;
 			}
 			if (numberCombo > 0) {
-				comboTxt.text = "Combo : " + numberCombo;
+				comboTxt.text = "Combo x" + numberCombo;
 			}
 		}
 		else if (comboTxt.text != "") {
