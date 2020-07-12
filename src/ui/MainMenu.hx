@@ -21,19 +21,18 @@ class MainMenu extends Process {
 
 		// -- Animals
 		animalLayer = new h2d.Layers();
-		animalLayer.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 		root.add(animalLayer, Const.DP_UI);
 
+		var animalIdx = 0;
 		for (animal in Data.animal.all) {
 			var lifePointUi = Assets.ui.h_get(animal.id.toString() + "_splash", 0, 0, animalLayer);
-			lifePointUi.x = 160 + 35 * i;
+			lifePointUi.x = 160 + 35 * animalIdx++;
 			lifePointUi.y = 95;
 			lifePointUi.scale(1);
 		}
 
 		// -- Levels
 		levelLayer = new h2d.Layers();
-		levelLayer.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 		root.add(levelLayer, Const.DP_UI);
 
 
