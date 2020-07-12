@@ -115,7 +115,7 @@ inputFiles=[{path:plant,type:Input,dirFilePrefix:null,recursive:false,flattenPat
 
 ---
 
-name=plan2
+name=plant2
 filename=
 output=../res/atlas
 
