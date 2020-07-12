@@ -52,7 +52,7 @@ class Level extends dn.Process {
 	override function init() {
 		super.init();
 
-		if (root != null)
+		if (root != null && current != null)
 			initLevel();
 	}
 
@@ -92,13 +92,6 @@ class Level extends dn.Process {
 			var b = new Breakable(o.object, o.x, o.y, Assets.objects);
 			root.add(b.spr, Const.DP_MAIN);
 			setBreakable(o.x, o.y, b);
-		}
-
-		for (t in current.triggers) {
-			if (t.id == Start) {
-				game.hero.setPosCell(t.x, t.y);
-				root.add(game.hero.spr, Const.DP_MAIN);
-			}
 		}
 
 		// Update camera zoom
