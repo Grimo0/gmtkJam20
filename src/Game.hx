@@ -59,7 +59,10 @@ class Game extends Process {
 		camera.trackTarget(hero, true);
 	}
 
-	public function onCdbReload() {}
+	public function onCdbReload() {
+		if (hero != null)
+			hero.reset();
+	}
 
 	override function onResize() {
 		super.onResize();
