@@ -1,40 +1,61 @@
 
 penguin2.png
-size: 128,64
+size: 32,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-idle0
+dead1
   rotate: false
-  xy: 96, 2
+  xy: 0, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-move1
+dead2
+  rotate: false
+  xy: 0, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+idle0
   rotate: false
   xy: 0, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+move1
+  rotate: false
+  xy: 0, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 move2
   rotate: false
-  xy: 32, 2
+  xy: 0, 138
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+dead0
+  rotate: false
+  xy: 0, 138
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 move0
   rotate: false
-  xy: 32, 2
+  xy: 0, 138
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 move3
   rotate: false
-  xy: 64, 2
+  xy: 0, 104
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

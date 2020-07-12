@@ -1,103 +1,138 @@
 
 ui.png
-size: 512,64
+size: 2048,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 key
   rotate: false
-  xy: 256, 32
+  xy: 1120, 192
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key_left
   rotate: false
-  xy: 288, 0
+  xy: 1168, 224
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key_right
   rotate: false
-  xy: 352, 32
+  xy: 1200, 224
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key_space
   rotate: false
-  xy: 48, 32
+  xy: 1072, 224
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 level1
   rotate: false
-  xy: 320, 32
+  xy: 1072, 112
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 level2
   rotate: false
-  xy: 320, 0
+  xy: 1152, 192
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 life
   rotate: false
-  xy: 48, 0
+  xy: 1136, 224
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 life_no
   rotate: false
-  xy: 288, 32
+  xy: 1024, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 life_tmp
   rotate: false
-  xy: 80, 0
+  xy: 1072, 144
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 mystery
   rotate: false
-  xy: 208, 16
+  xy: 1024, 64
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 penguin
   rotate: false
-  xy: 160, 16
+  xy: 1072, 176
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 penguin2
   rotate: false
-  xy: 0, 16
+  xy: 1024, 160
   size: 48, 48
   orig: 48, 48
+  offset: 0, 0
+  index: -1
+penguin2_splash
+  rotate: false
+  xy: 0, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+penguin_splash
+  rotate: false
+  xy: 256, 0
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 plant
   rotate: false
-  xy: 112, 16
+  xy: 1024, 112
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
+plant2
+  rotate: false
+  xy: 1024, 208
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+plant2_splash
+  rotate: false
+  xy: 512, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+plant_splash
+  rotate: false
+  xy: 768, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 settings
   rotate: false
-  xy: 256, 0
+  xy: 1024, 32
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
