@@ -44,6 +44,9 @@ class Hud extends dn.Process {
 
 	var timerTxt : h2d.Text;
 	var scoreTxt : h2d.Text;
+	var playerHealthTxt : h2d.Text;
+	var lifePointUi : HSprite;
+	var updateHp : Int;
 
 	var popupTime : Float;
 	var comboUiLayer : h2d.Layers;
@@ -90,6 +93,20 @@ class Hud extends dn.Process {
 		popupTime = 0;
 		comboUiLayer = new h2d.Layers();
 		game.scroller.add(comboUiLayer, Const.DP_UI);
+
+		// HealthPoints
+		playerHealthTxt = new h2d.Text(Assets.fontLarge);
+		playerHealthTxt.dropShadow = {
+			dx: 1,
+			dy: 1,
+			color: 0xFF0000,
+			alpha: 0.8
+		};
+		playerHealthTxt.x = 40;
+		playerHealthTxt.y = timerTxt.y + timerTxt.textHeight * 0.8;
+		playerHealthTxt.rotation = 0.2;
+		// playerHealthTxt.addShader(new SineDeformShader(0.1, 0.002, 3));
+		root.add(playerHealthTxt, Const.DP_UI);
 	}
 
 	public function pointsGain(x = 70.0, y = 50.0, pts = 1000) {
@@ -104,7 +121,12 @@ class Hud extends dn.Process {
 			color: 0xFF0000,
 			alpha: 0.8
 		};
-		scoreTf.text = "+" + pts;
+		if (pts > 0) {
+			scoreTf.text = "+" + pts;
+		}
+		else if (pts < 0) {
+			scoreTf.text = Std.string(pts);
+		}
 		scoreTf.textAlign = Center;
 		var colorId = Std.int(Math.random() * colors.length);
 		scoreTf.textColor = colors[colorId];
@@ -145,12 +167,23 @@ class Hud extends dn.Process {
 		super.update();
 
 		// timer hud
-		var levelTimerDisplay = Std.int(game.levelTimer * 10) / 10;
+		var levelTimerDisplay = Std.int(game.levelTimer * 100) / 100;
 		timerTxt.text = levelTimerDisplay + "s";
 
 		// total score hud
 		scoreTxt.text = "Score : " + game.points + " points";
+		
+		// health points hud
+		playerHealthTxt.text = "Health : " + game.healthPoints + " lives";
 
+		if (updateHp != game.healthPoints) {
+			for (i in 0...(game.healthPoints)) {
+				lifePointUi = Assets.ui.h_get("life", 0, 0, root);
+				lifePointUi.x = 10*i;
+			}
+			updateHp = game.healthPoints;
+		}
+		
 		// score popups
 		if (popupTime > 0) {
 			popupTime -= tmod;

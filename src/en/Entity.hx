@@ -86,6 +86,7 @@ class Entity {
 	public var maxLife(default, null) : Int;
 	public var life(default, null) : Int;
 	public var pointsToPlayer(default, null) : Int;
+	public var damageToPlayer(default, null) : Int;
 
 	var actions : Array<{id : String, cb : Void->Void, t : Float}> = [];
 
@@ -104,7 +105,7 @@ class Entity {
 		if (x != null && y != null)
 			setPosCell(x, y);
 
-		spr = new HSprite(spriteLib != null ? spriteLib : Assets.tiles);
+		spr = new HSprite(spriteLib);
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
 		blinkColor = new h3d.Vector();

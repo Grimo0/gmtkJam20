@@ -16,6 +16,7 @@ class Game extends Process {
 
 	public var levelTimer : Float;
 	public var points : Int;
+	public var healthPoints : Int;
 
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, {id : String, t : Float, f : Float}> = new Map();
@@ -41,6 +42,7 @@ class Game extends Process {
 		
 		levelTimer = 0.0;
 		points = 0;
+		healthPoints = 3;
 
 		level.setLevel(Data.LevelsKind.test);
 
@@ -200,6 +202,8 @@ class Game extends Process {
 		// Update slow-motions
 		updateSlowMos();
 		setTimeMultiplier((0.2 + 0.8 * curGameSpeed) * (ucd.has("stopFrame") ? 0.3 : 1));
-		Assets.tiles.tmod = tmod;
+		Assets.objects.tmod = tmod;
+		Assets.penguin.tmod = tmod;
+		Assets.plant.tmod = tmod;
 	}
 }
