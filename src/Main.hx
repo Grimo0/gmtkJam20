@@ -62,6 +62,9 @@ class Main extends dn.Process {
 			Const.SCALE = M.ceil(w() / Const.AUTO_SCALE_TARGET_WID);
 		else if (Const.AUTO_SCALE_TARGET_HEI > 0)
 			Const.SCALE = M.ceil(h() / Const.AUTO_SCALE_TARGET_HEI);
+
+		if (Const.AUTO_SCALE_UI_TARGET_HEI > 0)
+			Const.UI_SCALE = Math.max(1., h() / Const.AUTO_SCALE_UI_TARGET_HEI);
 	}
 
 	override function update() {

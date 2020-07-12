@@ -1,3 +1,4 @@
 res/.tmp
-redist.*
+redist/
+redist/*.*
 bin/*.*
