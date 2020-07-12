@@ -12,8 +12,6 @@ class Breakable extends Entity {
 		wid = spr.tile.width;
 		hei = spr.tile.height;
 
-		spr.rotation = data.rotation * Math.PI / 4;
-
 		maxLife = data.objectHealth;
 		life = data.objectHealth;
 	}

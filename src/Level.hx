@@ -90,6 +90,7 @@ class Level extends dn.Process {
 
 		for (o in current.objects) {
 			var b = new Breakable(o.object, o.x, o.y, Assets.objects);
+			b.spr.rotation = o.rotation * Math.PI / 4;
 			root.add(b.spr, Const.DP_MAIN);
 			setBreakable(o.x, o.y, b);
 		}
