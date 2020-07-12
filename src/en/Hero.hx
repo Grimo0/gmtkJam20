@@ -69,31 +69,31 @@ class Hero extends Entity {
 
 		if (moveLikeVehicule) {
 			// Vehicule movement : Up accelerates in the current angle, right and left change that angle
-			if (ca.leftDown() || ca.isKeyboardDown(hxd.Key.LEFT)) {
+			if (ca.leftDown()) {
 				angle -= rotationSpeed * Math.PI * tmod;
 			}
-			if (ca.rightDown() || ca.isKeyboardDown(hxd.Key.RIGHT)) {
+			if (ca.rightDown()) {
 				angle += rotationSpeed * Math.PI * tmod;
 			}
 
-			if (ca.upDown() || ca.isKeyboardDown(hxd.Key.UP)) {
+			if (ca.upDown()) {
 				// Calculate the progression on x and y based on the angle
 				dx += Math.cos(angle) * movementSpeed * tmod;
 				dy += Math.sin(angle) * movementSpeed * tmod;
 			}
-			if (ca.downDown() || ca.isKeyboardDown(hxd.Key.DOWN)) {
+			if (ca.downDown()) {
 				dx -= Math.cos(angle) * backSpeed * tmod;
 				dy -= Math.sin(angle) * backSpeed * tmod;
 			}
 		} else {
 			// Normal movement (haut bas gauche droite)
-			if (ca.leftDown() || ca.isKeyboardDown(hxd.Key.LEFT))
+			if (ca.leftDown())
 				dx -= movementSpeed * tmod;
-			if (ca.rightDown() || ca.isKeyboardDown(hxd.Key.RIGHT))
+			if (ca.rightDown())
 				dx += movementSpeed * tmod;
-			if (ca.upDown() || ca.isKeyboardDown(hxd.Key.UP))
+			if (ca.upDown())
 				dy -= movementSpeed * tmod;
-			if (ca.downDown() || ca.isKeyboardDown(hxd.Key.DOWN))
+			if (ca.downDown())
 				dy += movementSpeed * tmod;
 		}
 
