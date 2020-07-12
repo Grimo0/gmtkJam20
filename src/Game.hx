@@ -42,7 +42,7 @@ class Game extends Process {
 		levelTimer = 0.0;
 		points = 0;
 
-		level.setLevel(Data.LevelsKind.first_area);
+		level.setLevel(Data.LevelsKind.test);
 
 		camera.trackTarget(hero, true);
 
