@@ -109,7 +109,6 @@ class Entity {
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
 		blinkColor = new h3d.Vector();
-		spr.colorMatrix = h3d.Matrix.I();
 		spr.setCenterRatio(0.5, 0.5);
 
 		if (ui.Console.ME.hasFlag("bounds"))

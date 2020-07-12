@@ -24,6 +24,7 @@ class Hero extends Entity {
 
 	public function reset() {
 		maxLife = data.lifePoints;
+		life = maxLife;
 		wid = spr.tile.width;
 		hei = spr.tile.height;
 		radius = data.radius;
@@ -55,7 +56,6 @@ class Hero extends Entity {
 			hud.pointsGain(b.footX, b.footY, b.pointsToPlayer);
 			game.points += b.pointsToPlayer;
 		}
-		game.healthPoints -= b.damageToPlayer;
 
 		b.onCollide(this);
 		b.hit(1, this);

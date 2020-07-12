@@ -16,7 +16,6 @@ class Game extends Process {
 
 	public var levelTimer : Float;
 	public var points : Int;
-	public var healthPoints : Int;
 
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, {id : String, t : Float, f : Float}> = new Map();
@@ -31,7 +30,7 @@ class Game extends Process {
 
 		scroller = new h2d.Layers();
 		root.add(scroller, Const.DP_BG);
-		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
+		// scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		camera = new Camera();
 		fx = new Fx();
@@ -60,6 +59,7 @@ class Game extends Process {
 
 		hero = new en.Hero(Data.AnimalKind.penguin, Assets.animals.get(Data.AnimalKind.penguin));
 
+		hud.reset();
 		camera.trackTarget(hero, true);
 	}
 
@@ -158,6 +158,9 @@ class Game extends Process {
 			if (ca.isKeyboardPressed(Key.B))
 				ui.Console.ME.setFlag("bounds", !ui.Console.ME.hasFlag("bounds"));
 
+			if (ca.isKeyboardPressed(Key.N))
+				scroller.filter = scroller.filter == null ? new h2d.filter.ColorMatrix() : null;
+
 			// Level list
 			if (ca.isKeyboardPressed(Key.SHIFT)) {
 				ui.Console.ME.runCommand("cls");
@@ -235,11 +238,6 @@ class Game extends Process {
 
 		// update timer
 		levelTimer += tmod / 60;
-
-		// check hp
-		if (healthPoints <= 0) {
-			//trace("Lvl lost");
-		}
 	}
 
 	override function postUpdate() {

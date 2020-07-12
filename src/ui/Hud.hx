@@ -45,7 +45,6 @@ class Hud extends dn.Process {
 	var timerTxt : h2d.Text;
 	var scoreTxt : h2d.Text;
 	var lifePointsUi : h2d.Layers;
-	var lifePointUi : HSprite;
 	var updateHp : Int;
 	var animalLogo : HSprite;
 
@@ -73,7 +72,6 @@ class Hud extends dn.Process {
 		scoreTxt.x = 150;
 		scoreTxt.y = 40;
 		scoreTxt.rotation = -0.1;
-		// scoreTxt.addShader(new SineDeformShader(0.1, 0.002, 3));
 		root.add(scoreTxt, Const.DP_UI);
 
 		// Timer
@@ -87,7 +85,6 @@ class Hud extends dn.Process {
 		timerTxt.x = 155;
 		timerTxt.y = 125;
 		timerTxt.rotation = 0.12;
-		// timerTxt.addShader(new SineDeformShader(0.1, 0.002, 3));
 		root.add(timerTxt, Const.DP_UI);
 
 		// Combo ui
@@ -98,13 +95,36 @@ class Hud extends dn.Process {
 		// HealthPoints
 		lifePointsUi = new h2d.Layers();
 		root.add(lifePointsUi, Const.DP_UI);
-		updateHp = game.healthPoints;
+		updateHp = 0;
+
+		animalLogo = null;
+	}
+
+	public function reset() {
+		if (game.hero == null) return;
+
+		comboUiLayer.removeChildren();
+		popupTime = 0;
+
+		updateHearts();
+		updateHp = game.hero.life;
 
 		// Animal logo
-		animalLogo = Assets.ui.h_get("penguin", 0, 0, root);
+		animalLogo = Assets.ui.h_get(game.hero.data.id.toString(), 0, 0, root);
 		animalLogo.x = 40;
 		animalLogo.y = 65;
 		animalLogo.scale(2);
+	}
+
+	public inline function updateHearts() {
+		lifePointsUi.removeChildren();
+		for (i in 0...game.hero.life) {
+			var lifePointUi = Assets.ui.h_get("life", 0, 0, lifePointsUi);
+			lifePointUi.x = 160 + 35 * i;
+			lifePointUi.y = 95;
+			lifePointUi.scale(4);
+		}
+		updateHp = game.hero.life;
 	}
 
 	public function pointsGain(x = 70.0, y = 50.0, pts = 1000) {
@@ -170,20 +190,12 @@ class Hud extends dn.Process {
 
 		// total score hud
 		scoreTxt.text = "Score : " + game.points + " points";
-		
+
 		// health points hud
-		if (updateHp != game.healthPoints) {
-			lifePointsUi.removeChildren();
-			for (i in 0...(game.healthPoints)) {
-				lifePointUi = Assets.ui.h_get("life", 0, 0, lifePointsUi);
-				lifePointUi.x = 160 + 35*i;
-				lifePointUi.y = 95;//scoreTxt.y + scoreTxt.textHeight * 0.8;
-				lifePointUi.scale(4);
-			}
-			trace("new hp");
-			updateHp = game.healthPoints;
+		if (updateHp != game.hero.life) {
+			updateHearts();
 		}
-		
+
 		// score popups
 		if (popupTime > 0) {
 			popupTime -= tmod;

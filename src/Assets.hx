@@ -66,5 +66,10 @@ class Assets {
 		animals.set(Data.AnimalKind.plant, plant);
 		plant.defineAnim("idle", "0-2(10)");
 		plant.defineAnim("move", "0-3(10)");
+
+		var penguin2 = dn.heaps.assets.Atlas.load("atlas/penguin2.atlas");
+		animals.set(Data.AnimalKind.penguin2, penguin2);
+		penguin2.defineAnim("idle", "0");
+		penguin2.defineAnim("move", "0-3(10)");
 	}
 }
