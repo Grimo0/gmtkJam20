@@ -7,6 +7,13 @@ The language is **Haxe** (https://haxe.org).
 Builds are done with **Hashlink** (https://hashlink.haxe.org), a virtual machine, working on all platforms. 
 And using **Heaps** (https://heaps.io), a 2D/3D Haxe library (*ie.* an Haxelib). All of those tools are free and open-source.
 
+# Game control
+
+- LEFT/RIGHT or A/D or Q/D to turn
+- UP/DOWN or W/S or Z/S to accelerate/move back
+- R or SELECT to restart the level
+- B or escape twice to leave the game for the main menu or to leave the game from it
+
 # Installation & usage
 
 - First you can follow points 1 to 5 of this tutorial from *Sébastien Bénard* : https://deepnight.net/tutorial/a-quick-guide-to-installing-haxe/

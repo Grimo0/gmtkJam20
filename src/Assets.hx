@@ -1,6 +1,8 @@
 import dn.heaps.slib.*;
 
 class Assets {
+	public static var SFX = dn.heaps.assets.SfxDirectory.load("sfx");
+
 	public static var fontPixel : h2d.Font;
 	public static var fontTiny : h2d.Font;
 	public static var fontSmall : h2d.Font;
@@ -10,6 +12,8 @@ class Assets {
 	public static var ui : SpriteLib;
 	public static var objects : SpriteLib;
 	public static var animals : Map<Data.AnimalKind, SpriteLib>;
+
+	public static var musicIntro : dn.heaps.Sfx;
 
 	static var initDone = false;
 
@@ -40,6 +44,12 @@ class Assets {
 		});
 		#end
 
+		dn.heaps.Sfx.muteGroup(0); // HACK
+		dn.heaps.Sfx.setGroupVolume(0, 0.6);
+
+		musicIntro = new dn.heaps.Sfx(hxd.Res.music.MenuIntro);
+		musicIntro.groupId = 1;
+
 		// -- Database
 		Data.load(hxd.Res.data.entry.getText());
 
@@ -52,7 +62,7 @@ class Assets {
 
 		// -- Atlases
 		ui = dn.heaps.assets.Atlas.load("atlas/ui.atlas");
-		
+
 		objects = dn.heaps.assets.Atlas.load("atlas/spritesheet.atlas");
 
 		animals = new Map();
