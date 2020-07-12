@@ -183,7 +183,7 @@ class Game extends Process {
 		}
 
 		// update timer
-		levelTimer += utmod;
+		levelTimer += tmod / 60;
 	}
 
 	override function postUpdate() {

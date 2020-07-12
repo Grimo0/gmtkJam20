@@ -10,7 +10,27 @@
 	},
 	"sameLine": {
 		"anonFunctionBody": "keep",
-		"functionBody": "keep"
+		"functionBody": "keep",
+		"caseBody": "keep",
+		"catchBody": "keep",
+		"comprehensionFor": "keep",
+		"doWhile": "keep",
+		"doWhileBody": "keep",
+		"elseBody": "keep",
+		"elseIf": "keep",
+		"expressionCase": "keep",
+		"expressionIf": "keep",
+		"expressionTry": "keep",
+		"expressionIfWithBlocks": false,
+		"forBody": "keep",
+		"ifBody": "keep",
+		"ifElse": "keep",
+		"returnBody": "keep",
+		"returnBodySingleLine": "keep",
+		"tryBody": "keep",
+		"tryCatch": "keep",
+		"untypedBody": "keep",
+		"whileBody": "keep"
 	},
 	"whitespace": {
 		"typeHintColonPolicy": "around"

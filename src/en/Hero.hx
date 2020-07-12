@@ -34,8 +34,7 @@ class Hero extends Entity {
 		var b = e.as(Breakable);
 		if (b == null) return;
 
-		// TODO: find better x,y of broke object
-		hud.pointsGain(b.footX, 50.0, b.pointsToPlayer);
+		hud.pointsGain(b.footX, b.footY, b.pointsToPlayer);
 		game.points += b.pointsToPlayer;
 
 		b.onCollide(this);

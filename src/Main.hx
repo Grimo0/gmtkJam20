@@ -1,4 +1,3 @@
-import Data;
 import hxd.Key;
 
 class Main extends dn.Process {
@@ -64,8 +63,6 @@ class Main extends dn.Process {
 			Const.SCALE = M.ceil(w() / Const.AUTO_SCALE_TARGET_WID);
 		else if (Const.AUTO_SCALE_TARGET_HEI > 0)
 			Const.SCALE = M.ceil(h() / Const.AUTO_SCALE_TARGET_HEI);
-
-		Const.UI_SCALE = Const.SCALE;
 	}
 
 	override function update() {
