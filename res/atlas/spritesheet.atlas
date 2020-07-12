@@ -146,7 +146,7 @@ bush0
   index: -1
 bush1
   rotate: false
-  xy: 126, 32
+  xy: 126, 48
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
