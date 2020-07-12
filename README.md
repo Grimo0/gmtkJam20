@@ -1,6 +1,6 @@
 # About
 
-This game is made for the Game Maker's Toolkit Jam (https://itch.io/jam/gmtk-jam).
+Wild Wild Zoo is made for the Game Maker's Toolkit Jam (https://itch.io/jam/gmtk-jam).
 
 Base structure for this game is https://github.com/Grimo0/gameBase themself forked from (https://github.com/deepnight/gameBase).
 The language is **Haxe** (https://haxe.org).
