@@ -58,7 +58,7 @@
 		{
 			"text": "📦 Redist",
 			"color": "lightgreen",
-			"command": "haxelib run redistHelper hl.dx.hxml hl.sdl.hxml -p GMTK-Jam-2020",
+			"command": "haxelib run redistHelper hl.dx.hxml hl.sdl.hxml -p wild-wild-zoo",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -50
@@ -66,7 +66,7 @@
 		{
 			"text": "📦 Redist JS",
 			"color": "lightgreen",
-			"command": "haxelib run redistHelper js.hxml -zip -p GMTK-Jam-2020",
+			"command": "haxelib run redistHelper js.hxml -zip -p wild-wild-zoo",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -50
