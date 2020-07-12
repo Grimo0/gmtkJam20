@@ -58,7 +58,15 @@
 		{
 			"text": "📦 Redist",
 			"color": "lightgreen",
-			"command": "haxelib run redistHelper hl.dx.hxml hl.sdl.hxml js.hxml swf.hxml -o redist.$ -P MyGame",
+			"command": "haxelib run redistHelper hl.dx.hxml hl.sdl.hxml -p GMTK-Jam-2020",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -50
+		},
+		{
+			"text": "📦 Redist JS",
+			"color": "lightgreen",
+			"command": "haxelib run redistHelper js.hxml -zip -p GMTK-Jam-2020",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -50

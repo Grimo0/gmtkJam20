@@ -10,9 +10,10 @@ And using **Heaps** (https://heaps.io), a 2D/3D Haxe library (*ie.* an Haxelib).
 # Installation & usage
 
 - First you can follow points 1 to 5 of this tutorial from *Sébastien Bénard* : https://deepnight.net/tutorial/a-quick-guide-to-installing-haxe/
-- Install deepnightLibs and CastleDB lib as follow : 
+- Install deepnightLibs, CastleDB and redistHelper lib as follow : 
 	`haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git`
 	`haxelib git castle https://github.com/ncannasse/castle.git`
+	`haxelib install redistHelper`
 - Download it into your local repository or fork this project then clone yours 
 - Open the root folder with vscode
 - Press F1 then `Haxe: select configuration` and select hl.debug.hxml
