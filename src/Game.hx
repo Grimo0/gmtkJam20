@@ -37,7 +37,7 @@ class Game extends Process {
 		hud = new ui.Hud();
 		level = new Level();
 
-		startLevel(Data.LevelsKind.test);
+		startLevel(Data.LevelsKind.test1);
 
 		Process.resizeAll();
 		trace("Game is ready.");

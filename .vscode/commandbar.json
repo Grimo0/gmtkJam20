@@ -5,7 +5,7 @@
 	"commands": [
 		{
 			"text": "🍊 Build HL",
-			"color": "orange",
+			"color": "yellow",
 			"commandType":"palette",
 			"command": "workbench.action.tasks.runTask|HL release",
 			"alignment": "right",
@@ -14,11 +14,28 @@
 		},
 		{
 			"text": "Run HL",
-			"color": "orange",
+			"color": "yellow",
 			"command": "hl bin/client.hl",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -11
+		},
+		{
+			"text": "🍪 Build JS",
+			"color": "yellow",
+			"commandType":"palette",
+			"command": "workbench.action.tasks.runTask|JS release",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -12
+		},
+		{
+			"text": "Run JS",
+			"color": "yellow",
+			"command": "js.html",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -13
 		},
 		{
 			"text": "🧹 Format src",
