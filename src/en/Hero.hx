@@ -51,8 +51,11 @@ class Hero extends Entity {
 		var b = e.as(Breakable);
 		if (b == null) return;
 
-		hud.pointsGain(b.footX, b.footY, b.pointsToPlayer);
-		game.points += b.pointsToPlayer;
+		if (b.pointsToPlayer != 0) {
+			hud.pointsGain(b.footX, b.footY, b.pointsToPlayer);
+			game.points += b.pointsToPlayer;
+		}
+		game.healthPoints -= b.damageToPlayer;
 
 		b.onCollide(this);
 		b.hit(1, this);

@@ -16,6 +16,7 @@ class Game extends Process {
 
 	public var levelTimer : Float;
 	public var points : Int;
+	public var healthPoints : Int;
 
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, {id : String, t : Float, f : Float}> = new Map();
@@ -58,7 +59,7 @@ class Game extends Process {
 		level.setLevel(kind);
 
 		hero = new en.Hero(Data.AnimalKind.penguin, Assets.animals.get(Data.AnimalKind.penguin));
-		
+
 		camera.trackTarget(hero, true);
 	}
 

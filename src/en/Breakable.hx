@@ -15,6 +15,7 @@ class Breakable extends Entity {
 		maxLife = data.objectHealth;
 		life = data.objectHealth;
 		pointsToPlayer = data.pointsToPlayer;
+		damageToPlayer = data.damageToPlayer;
 	}
 
 	override public function onDamage(dmg : Int, from : Null<Entity>) {
