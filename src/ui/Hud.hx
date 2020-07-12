@@ -44,6 +44,7 @@ class Hud extends dn.Process {
 
 	var timerTxt : h2d.Text;
 	var scoreTxt : h2d.Text;
+	var comboTxt : h2d.Text;
 	var lifePointsUi : h2d.Layers;
 	var updateHp : Int;
 	var animalLogo : HSprite;
@@ -73,6 +74,19 @@ class Hud extends dn.Process {
 		scoreTxt.y = 40;
 		scoreTxt.rotation = -0.1;
 		root.add(scoreTxt, Const.DP_UI);
+
+		// combo
+		comboTxt = new h2d.Text(Assets.fontLarge);
+		comboTxt.dropShadow = {
+			dx: 1,
+			dy: 1,
+			color: 0xFF0000,
+			alpha: 0.8
+		};
+		comboTxt.x = 150;
+		comboTxt.y = 190;
+		comboTxt.rotation = -0.1;
+		root.add(comboTxt, Const.DP_UI);
 
 		// Timer
 		timerTxt = new h2d.Text(Assets.fontLarge);
@@ -130,7 +144,7 @@ class Hud extends dn.Process {
 	public function pointsGain(x = 70.0, y = 50.0, pts = 1000) {
 		// Display a popup with the points won, after collision.
 		// The message is after few seconds.
-		popupTime = 50.;
+		popupTime = 100.;
 
 		var scoreTf = new h2d.Text(Assets.fontPixel);
 		scoreTf.dropShadow = {
@@ -204,6 +218,18 @@ class Hud extends dn.Process {
 				comboUiLayer.removeChildren();
 				popupTime = 0;
 			}
+
+			// combo points hud
+			var numberCombo = 0;
+			for (a in comboUiLayer) {
+				numberCombo += 1;
+			}
+			if (numberCombo > 0) {
+				comboTxt.text = "Combo : " + numberCombo;
+			}
+		}
+		else if (comboTxt.text != "") {
+			comboTxt.text = "";
 		}
 	}
 }

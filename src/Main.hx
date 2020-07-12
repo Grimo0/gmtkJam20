@@ -38,8 +38,8 @@ class Main extends dn.Process {
 		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
 
 		// Start
-		delayer.addF(startMainMenu, 1);
-		// startGame(Data.LevelsKind.test1, Data.AnimalKind.penguin);
+		//delayer.addF(startMainMenu, 1);
+		startGame(Data.LevelsKind.test1, Data.AnimalKind.penguin);
 	}
 
 	public function startMainMenu() {
