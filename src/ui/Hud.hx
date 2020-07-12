@@ -90,6 +90,7 @@ class Hud extends dn.Process {
 		// Combo ui
 		popupTime = 0;
 		comboUiLayer = new h2d.Layers();
+		comboUiLayer.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 		game.scroller.add(comboUiLayer, Const.DP_UI);
 
 		// HealthPoints
