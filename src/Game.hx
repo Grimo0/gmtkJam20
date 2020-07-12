@@ -37,14 +37,10 @@ class Game extends Process {
 		hud = new ui.Hud();
 		level = new Level();
 
-		startLevel(Data.LevelsKind.test);
+		startLevel(Data.LevelsKind.test1);
 
 		Process.resizeAll();
 		trace("Game is ready.");
-		#if debug
-		trace("Press SHIFT to display levels, then while down, press PGUP or PGDOWN");
-		trace("Press PGUP or PGDOWN to change the scale");
-		#end
 	}
 
 	public function startLevel(kind : Data.LevelsKind) {
@@ -63,11 +59,15 @@ class Game extends Process {
 		camera.trackTarget(hero, true);
 	}
 
-	public function onCdbReload() {}
+	public function onCdbReload() {
+		if (hero != null)
+			hero.reset();
+	}
 
 	override function onResize() {
 		super.onResize();
 		scroller.setScale(Const.SCALE);
+		camera.trackTarget(hero, true);
 	}
 
 	override function onDispose() {
@@ -201,6 +201,7 @@ class Game extends Process {
 					var animalKind = Data.animal.all[newIdx].id;
 					hero = new en.Hero(animalKind, Assets.animals.get(animalKind));
 
+					hud.reset();
 					camera.trackTarget(hero, true);
 				}
 				if (ca.isKeyboardPressed(Key.PGDOWN)) {
@@ -217,6 +218,7 @@ class Game extends Process {
 					var animalKind = Data.animal.all[newIdx].id;
 					hero = new en.Hero(animalKind, Assets.animals.get(animalKind));
 
+					hud.reset();
 					camera.trackTarget(hero, true);
 				}
 			} else {
