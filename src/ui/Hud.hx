@@ -45,6 +45,8 @@ class Hud extends dn.Process {
 	var timerTxt : h2d.Text;
 	var scoreTxt : h2d.Text;
 	var playerHealthTxt : h2d.Text;
+	var lifePointUi : HSprite;
+	var updateHp : Int;
 
 	var popupTime : Float;
 	var comboUiLayer : h2d.Layers;
@@ -165,7 +167,7 @@ class Hud extends dn.Process {
 		super.update();
 
 		// timer hud
-		var levelTimerDisplay = Std.int(game.levelTimer * 10) / 10;
+		var levelTimerDisplay = Std.int(game.levelTimer * 100) / 100;
 		timerTxt.text = levelTimerDisplay + "s";
 
 		// total score hud
@@ -174,6 +176,14 @@ class Hud extends dn.Process {
 		// health points hud
 		playerHealthTxt.text = "Health : " + game.healthPoints + " lives";
 
+		if (updateHp != game.healthPoints) {
+			for (i in 0...(game.healthPoints)) {
+				lifePointUi = Assets.ui.h_get("life", 0, 0, root);
+				lifePointUi.x = 10*i;
+			}
+			updateHp = game.healthPoints;
+		}
+		
 		// score popups
 		if (popupTime > 0) {
 			popupTime -= tmod;

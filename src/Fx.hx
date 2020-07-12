@@ -152,6 +152,6 @@ class Fx extends dn.Process {
 	override function update() {
 		super.update();
 
-		pool.update(game.tmod);
+		//pool.update(game.tmod); FIXME
 	}
 }
