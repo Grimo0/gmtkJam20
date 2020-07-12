@@ -64,6 +64,7 @@ class Game extends Process {
 	override function onResize() {
 		super.onResize();
 		scroller.setScale(Const.SCALE);
+		camera.trackTarget(hero, true);
 	}
 
 	override function onDispose() {
