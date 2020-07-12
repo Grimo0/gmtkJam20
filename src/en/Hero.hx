@@ -5,6 +5,9 @@ class Hero extends Entity {
 
 	public var data(default, null) : Data.Animal;
 
+	public var speed(default, null) : Float;
+	public var moved(default, null) : Bool;
+
 	public function new(kind : Data.AnimalKind, ?x, ?y, ?spriteLib) {
 		super(x, y, spriteLib);
 
@@ -16,14 +19,28 @@ class Hero extends Entity {
 		spr.anim.registerStateAnim("move", 1, function() return dx != 0 || dy != 0);
 		// spr.anim.setStateAnimSpeed("move", );
 
+		reset();
+	}
+
+	public function reset() {
 		maxLife = data.lifePoints;
 		wid = spr.tile.width;
 		hei = spr.tile.height;
 		radius = data.radius;
 		bumpStrength = data.bumpStrength;
+		speed = data.minSpeed;
+		moved = false;
+		
+		for (t in level.current.triggers) {
+			if (t.id == Start) {
+				setPosCell(t.x, t.y);
+				level.root.add(spr, Const.DP_MAIN);
+				break;
+			}
+		}
 	}
 
-	override function dispose() { // call on garbage collection
+	override function dispose() { // called on garbage collection
 		super.dispose();
 		ca.dispose(); // release on destruction
 	}
@@ -44,7 +61,7 @@ class Hero extends Entity {
 	override function update() { // the Entity main loop
 		var moveLikeVehicule = true;
 		var rotationSpeed = data.turnSpeed;
-		var movementSpeed = data.maxSpeed;
+		var movementSpeed = data.maxSpeed;//(data.maxSpeed - data.minSpeed) * data.accelerationSpeed + data.minSpeed;
 		var backSpeed = data.backSpeed;
 
 		if (moveLikeVehicule) {

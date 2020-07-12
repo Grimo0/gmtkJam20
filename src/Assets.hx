@@ -9,8 +9,7 @@ class Assets {
 
 	public static var ui : SpriteLib;
 	public static var objects : SpriteLib;
-	public static var penguin : SpriteLib;
-	public static var plant : SpriteLib;
+	public static var animals : Map<Data.AnimalKind, SpriteLib>;
 
 	static var initDone = false;
 
@@ -56,11 +55,15 @@ class Assets {
 		
 		objects = dn.heaps.assets.Atlas.load("atlas/spritesheet.atlas");
 
-		penguin = dn.heaps.assets.Atlas.load("atlas/penguin.atlas");
+		animals = new Map();
+
+		var penguin = dn.heaps.assets.Atlas.load("atlas/penguin.atlas");
+		animals.set(Data.AnimalKind.penguin, penguin);
 		penguin.defineAnim("idle", "0");
 		penguin.defineAnim("move", "0-3(10)");
 
-		plant = dn.heaps.assets.Atlas.load("atlas/plant.atlas");
+		var plant = dn.heaps.assets.Atlas.load("atlas/plant.atlas");
+		animals.set(Data.AnimalKind.plant, plant);
 		plant.defineAnim("idle", "0-2(10)");
 		plant.defineAnim("move", "0-3(10)");
 	}
