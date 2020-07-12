@@ -1,8 +1,6 @@
 import dn.heaps.slib.*;
 
 class Assets {
-	public static var SFX = dn.heaps.assets.SfxDirectory.load("sfx");
-
 	public static var fontPixel : h2d.Font;
 	public static var fontTiny : h2d.Font;
 	public static var fontSmall : h2d.Font;
@@ -43,6 +41,9 @@ class Assets {
 			}, 0.2);
 		});
 		#end
+
+		for (s in hxd.Res.load("sfx"))
+			s.toSound().getData();
 
 		dn.heaps.Sfx.muteGroup(0); // HACK
 		dn.heaps.Sfx.setGroupVolume(0, 0.6);

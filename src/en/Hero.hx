@@ -48,18 +48,52 @@ class Hero extends Entity {
 	}
 
 	override function onCollide(e : Entity) {
-		if (e == null || e == this) return;
+		var eRand = Math.random();
+		if (e == null || e == this) {
+			if (eRand > 0.5)
+				hxd.Res.sfx.blocked.play();
+			else
+				hxd.Res.sfx.blocked2.play();
+			return;
+		}
 
 		var b = e.as(Breakable);
-		if (b == null) return;
-
-		if (b.data.pointsToPlayer != 0) {
-			hud.pointsGain(b.footX, b.footY, b.data.pointsToPlayer);
-			game.points += b.data.pointsToPlayer;
+		if (b == null) {
+			return;
 		}
 
 		b.onCollide(this);
 		b.hit(1, this);
+
+		if (b.data.pointsToPlayer != 0) {
+			if (!b.isDead()) {
+				if (eRand > 0.5)
+					hxd.Res.sfx.blocked.play();
+				else
+					hxd.Res.sfx.blocked2.play();
+
+				return;
+			}
+			else if (b.wid > Const.GRID || b.hei > Const.GRID)
+				hxd.Res.sfx.bigDestroy.play();
+			else {
+				if (eRand > 0.5)
+					hxd.Res.sfx.smallDestroy.play();
+				else
+					hxd.Res.sfx.smallDestroy2.play();
+			}
+		
+			// Give points on object destruction only
+			hud.pointsGain(b.footX, b.footY, b.data.pointsToPlayer);
+			game.points += b.data.pointsToPlayer;
+		}
+	}
+
+
+	override function onDamage(dmg:Int, from:Null<Entity>) {
+		super.onDamage(dmg, from);
+
+		hxd.Res.sfx.hurt.play();
 	}
 
 	override function update() { // the Entity main loop
