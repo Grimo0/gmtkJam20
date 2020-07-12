@@ -52,14 +52,14 @@
 			"lines": [
 				{
 					"id": "penguin",
-					"name": "Joe the penguin",
-					"turnSpeed": 0.01,
-					"maxSpeed": 0.05,
-					"accelerationSpeed": 0.01,
+					"name": "Rocket penguin",
+					"turnSpeed": 0.02,
+					"maxSpeed": 0.06,
+					"accelerationSpeed": 0.005,
 					"decelerationSpeed": 0.01,
 					"radius": 13,
 					"backSpeed": 0.01,
-					"lifePoints": 100,
+					"lifePoints": 3,
 					"bumpStrength": 0.3,
 					"minSpeed": 0.01
 				},
@@ -67,14 +67,27 @@
 					"id": "plant",
 					"name": "Plant man",
 					"accelerationSpeed": 0.02,
-					"maxSpeed": 0.06,
-					"decelerationSpeed": 0.02,
-					"turnSpeed": 0.005,
+					"maxSpeed": 0.04,
+					"decelerationSpeed": 0.03,
+					"turnSpeed": 0.05,
 					"radius": 14,
 					"backSpeed": 0.02,
-					"lifePoints": 100,
+					"lifePoints": 2,
 					"bumpStrength": 0.3,
 					"minSpeed": 0
+				},
+				{
+					"id": "penguin2",
+					"name": "Skate penguin",
+					"accelerationSpeed": 0.01,
+					"maxSpeed": 0.05,
+					"minSpeed": 0.01,
+					"decelerationSpeed": 0.02,
+					"turnSpeed": 0.03,
+					"radius": 13,
+					"backSpeed": 0.01,
+					"lifePoints": 3,
+					"bumpStrength": 0.3
 				}
 			],
 			"separators": [],
@@ -213,7 +226,7 @@
 					"type": 1,
 					"objectHealth": 2,
 					"isDestructible": true,
-					"damageToPlayer": 10,
+					"damageToPlayer": 1,
 					"pointsToPlayer": 250,
 					"rotation": 0,
 					"img": {
@@ -229,7 +242,6 @@
 					"type": 0,
 					"objectHealth": 1,
 					"isDestructible": true,
-					"damageToPlayer": 10,
 					"pointsToPlayer": 100,
 					"rotation": 0,
 					"img": {
@@ -274,7 +286,7 @@
 					"type": 2,
 					"objectHealth": 0,
 					"isDestructible": false,
-					"damageToPlayer": 20,
+					"damageToPlayer": 1,
 					"pointsToPlayer": -20,
 					"rotation": 0
 				},
@@ -283,7 +295,7 @@
 					"type": 2,
 					"objectHealth": 0,
 					"isDestructible": false,
-					"damageToPlayer": 20,
+					"damageToPlayer": 1,
 					"pointsToPlayer": -30,
 					"rotation": 0,
 					"img": {
@@ -474,7 +486,7 @@
 						"x": 2,
 						"y": 4
 					},
-					"damageToPlayer": 20,
+					"damageToPlayer": 2,
 					"pointsToPlayer": 75,
 					"rotation": 0
 				},
@@ -490,7 +502,7 @@
 						"y": 4,
 						"width": 2
 					},
-					"damageToPlayer": 20,
+					"damageToPlayer": 2,
 					"pointsToPlayer": 100,
 					"rotation": 0
 				},
@@ -506,7 +518,7 @@
 						"x": 13,
 						"y": 4
 					},
-					"damageToPlayer": 20,
+					"damageToPlayer": 1,
 					"pointsToPlayer": -30
 				},
 				{
