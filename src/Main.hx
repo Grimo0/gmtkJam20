@@ -39,6 +39,7 @@ class Main extends dn.Process {
 
 		// Start
 		delayer.addF(startMainMenu, 1);
+		// startGame(Data.LevelsKind.test1, Data.AnimalKind.penguin);
 	}
 
 	public function startMainMenu() {
