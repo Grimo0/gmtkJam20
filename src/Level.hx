@@ -93,16 +93,10 @@ class Level extends dn.Process {
 			root.add(b.spr, Const.DP_MAIN);
 			setBreakable(o.x, o.y, b);
 		}
-
-		// Update camera zoom
-		Const.SCALE = Math.floor(game.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
 	}
 
 	override function onResize() {
 		super.onResize();
-
-		// Update camera zoom
-		Const.SCALE = Math.floor(game.w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
 	}
 
 	public function render() {}

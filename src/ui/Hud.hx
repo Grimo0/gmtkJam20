@@ -123,7 +123,6 @@ class Hud extends dn.Process {
 			var lifePointUi = Assets.ui.h_get("life", 0, 0, lifePointsUi);
 			lifePointUi.x = 160 + 35 * i;
 			lifePointUi.y = 95;
-			lifePointUi.scale(1);
 		}
 		updateHp = game.hero.life;
 	}

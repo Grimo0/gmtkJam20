@@ -1,26 +1,54 @@
 
-penguin2.png
-size: 256,32
+plan2.png
+size: 512,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-dead1
+dead0
   rotate: false
   xy: 96, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-dead2
+idle0
+  rotate: false
+  xy: 96, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+dead1
   rotate: false
   xy: 128, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-idle0
+dead2
   rotate: false
   xy: 160, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+idle1
+  rotate: false
+  xy: 192, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+idle2
+  rotate: false
+  xy: 224, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+move0
+  rotate: false
+  xy: 256, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -33,20 +61,6 @@ move1
   offset: 0, 0
   index: -1
 move2
-  rotate: false
-  xy: 32, 0
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-dead0
-  rotate: false
-  xy: 32, 0
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-move0
   rotate: false
   xy: 32, 0
   size: 32, 32

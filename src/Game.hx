@@ -37,13 +37,11 @@ class Game extends Process {
 		hud = new ui.Hud();
 		level = new Level();
 
-		startLevel(Data.LevelsKind.test1);
-
 		Process.resizeAll();
-		trace("Game is ready.");
+		trace("is ready.");
 	}
 
-	public function startLevel(kind : Data.LevelsKind) {
+	public function startLevel(kind : Data.LevelsKind, animal : Data.AnimalKind) {
 		levelTimer = 0.0;
 		points = 0;
 
@@ -53,7 +51,7 @@ class Game extends Process {
 
 		level.setLevel(kind);
 
-		hero = new en.Hero(Data.AnimalKind.penguin, Assets.animals.get(Data.AnimalKind.penguin));
+		hero = new en.Hero(animal, Assets.animals.get(animal));
 
 		hud.reset();
 		camera.trackTarget(hero, true);
@@ -66,6 +64,9 @@ class Game extends Process {
 
 	override function onResize() {
 		super.onResize();
+
+		Const.SCALE = Math.floor(w() / (Const.MAX_CELLS_PER_WIDTH * Const.GRID));
+		
 		scroller.setScale(Const.SCALE);
 		camera.trackTarget(hero, true);
 	}
@@ -143,15 +144,17 @@ class Game extends Process {
 				e.update();
 
 		if (!ui.Console.ME.isActive() && !ui.Modal.hasAny()) {
-			#if hl
-			// Exit
-			if (ca.isKeyboardPressed(Key.ESCAPE)) {
+			// Exit to main menu
+			if (ca.bPressed()) {
 				if (!cd.hasSetS("exitWarn", 3))
 					trace(Lang.t._("Press ESCAPE again to exit."));
 				else
-					hxd.System.exit();
+					Main.ME.startMainMenu();
 			}
-			#end
+
+			// Restart
+			if (ca.selectPressed())
+				Main.ME.startGame(level.current.id, hero.data.id);
 
 			#if debug
 			// Bounds
@@ -180,11 +183,11 @@ class Game extends Process {
 			if (ca.isKeyboardDown(Key.SHIFT)) {
 				if (ca.isKeyboardPressed(Key.PGUP)) {
 					var newIdx = level.currentIdx == 0 ? Data.levels.all.length - 1 : level.currentIdx - 1;
-					startLevel(Data.levels.all[newIdx].id);
+					startLevel(Data.levels.all[newIdx].id, hero.data.id);
 				}
 				if (ca.isKeyboardPressed(Key.PGDOWN)) {
 					var newIdx = level.currentIdx == Data.levels.all.length - 1 ? 0 : level.currentIdx + 1;
-					startLevel(Data.levels.all[newIdx].id);
+					startLevel(Data.levels.all[newIdx].id, hero.data.id);
 				}
 			} else if (ca.isKeyboardDown(Key.CTRL)) {
 				if (ca.isKeyboardPressed(Key.PGUP)) {
@@ -232,10 +235,6 @@ class Game extends Process {
 				}
 			}
 			#end
-
-			// Restart
-			if (ca.selectPressed())
-				Main.ME.startGame();
 		}
 
 		// update timer

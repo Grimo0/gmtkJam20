@@ -1,3 +1,4 @@
+import ui.MainMenu;
 import hxd.Key;
 
 class Main extends dn.Process {
@@ -15,9 +16,6 @@ class Main extends dn.Process {
 		// Engine settings
 		hxd.Timer.wantedFPS = Const.FPS;
 		engine.backgroundColor = 0xff << 24 | 0x111133;
-		#if (hl && !debug)
-		engine.fullScreen = true;
-		#end
 
 		// Assets & data init
 		Assets.init();
@@ -26,7 +24,6 @@ class Main extends dn.Process {
 
 		// Game controller
 		controller = new dn.heaps.Controller(s);
-		ca = controller.createAccess("main");
 		controller.bind(AXIS_LEFT_X_NEG, Key.LEFT, Key.Q, Key.A);
 		controller.bind(AXIS_LEFT_X_POS, Key.RIGHT, Key.D);
 		controller.bind(AXIS_LEFT_Y_POS, Key.UP, Key.Z, Key.W);
@@ -41,17 +38,30 @@ class Main extends dn.Process {
 		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
 
 		// Start
-		delayer.addF(startGame, 1);
+		delayer.addF(startMainMenu, 1);
 	}
 
-	public function startGame() {
+	public function startMainMenu() {
+		if (MainMenu.ME != null) {
+			MainMenu.ME.destroy();
+			delayer.addF(function() {
+				new MainMenu();
+			}, 1);
+		} else
+			new MainMenu();
+	}
+
+	public function startGame(kind : Data.LevelsKind, animal : Data.AnimalKind) {
 		if (Game.ME != null) {
 			Game.ME.destroy();
 			delayer.addF(function() {
 				new Game();
+				Game.ME.startLevel(Data.LevelsKind.test1, Data.AnimalKind.penguin);
 			}, 1);
-		} else
+		} else {
 			new Game();
+			Game.ME.startLevel(Data.LevelsKind.test1, Data.AnimalKind.penguin);
+		}
 	}
 
 	override public function onResize() {
