@@ -44,9 +44,10 @@ class Hud extends dn.Process {
 
 	var timerTxt : h2d.Text;
 	var scoreTxt : h2d.Text;
-	var playerHealthTxt : h2d.Text;
+	var lifePointsUi : h2d.Layers;
 	var lifePointUi : HSprite;
 	var updateHp : Int;
+	var animalLogo : HSprite;
 
 	var popupTime : Float;
 	var comboUiLayer : h2d.Layers;
@@ -69,7 +70,7 @@ class Hud extends dn.Process {
 			color: 0xFF0000,
 			alpha: 0.8
 		};
-		scoreTxt.x = 40;
+		scoreTxt.x = 150;
 		scoreTxt.y = 40;
 		scoreTxt.rotation = -0.1;
 		// scoreTxt.addShader(new SineDeformShader(0.1, 0.002, 3));
@@ -83,9 +84,9 @@ class Hud extends dn.Process {
 			color: 0xFF0000,
 			alpha: 0.8
 		};
-		timerTxt.x = 40;
-		timerTxt.y = scoreTxt.y + scoreTxt.textHeight * 0.8;
-		timerTxt.rotation = 0.05;
+		timerTxt.x = 155;
+		timerTxt.y = 125;
+		timerTxt.rotation = 0.12;
 		// timerTxt.addShader(new SineDeformShader(0.1, 0.002, 3));
 		root.add(timerTxt, Const.DP_UI);
 
@@ -95,18 +96,15 @@ class Hud extends dn.Process {
 		game.scroller.add(comboUiLayer, Const.DP_UI);
 
 		// HealthPoints
-		playerHealthTxt = new h2d.Text(Assets.fontLarge);
-		playerHealthTxt.dropShadow = {
-			dx: 1,
-			dy: 1,
-			color: 0xFF0000,
-			alpha: 0.8
-		};
-		playerHealthTxt.x = 40;
-		playerHealthTxt.y = timerTxt.y + timerTxt.textHeight * 0.8;
-		playerHealthTxt.rotation = 0.2;
-		// playerHealthTxt.addShader(new SineDeformShader(0.1, 0.002, 3));
-		root.add(playerHealthTxt, Const.DP_UI);
+		lifePointsUi = new h2d.Layers();
+		root.add(lifePointsUi, Const.DP_UI);
+		updateHp = game.healthPoints;
+
+		// Animal logo
+		animalLogo = Assets.ui.h_get("penguin", 0, 0, root);
+		animalLogo.x = 40;
+		animalLogo.y = 65;
+		animalLogo.scale(2);
 	}
 
 	public function pointsGain(x = 70.0, y = 50.0, pts = 1000) {
@@ -174,13 +172,15 @@ class Hud extends dn.Process {
 		scoreTxt.text = "Score : " + game.points + " points";
 		
 		// health points hud
-		playerHealthTxt.text = "Health : " + game.healthPoints + " lives";
-
 		if (updateHp != game.healthPoints) {
+			lifePointsUi.removeChildren();
 			for (i in 0...(game.healthPoints)) {
-				lifePointUi = Assets.ui.h_get("life", 0, 0, root);
-				lifePointUi.x = 10*i;
+				lifePointUi = Assets.ui.h_get("life", 0, 0, lifePointsUi);
+				lifePointUi.x = 160 + 35*i;
+				lifePointUi.y = 95;//scoreTxt.y + scoreTxt.textHeight * 0.8;
+				lifePointUi.scale(4);
 			}
+			trace("new hp");
 			updateHp = game.healthPoints;
 		}
 		

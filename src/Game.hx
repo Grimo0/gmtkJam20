@@ -186,6 +186,11 @@ class Game extends Process {
 
 		// update timer
 		levelTimer += tmod / 60;
+
+		// check hp
+		if (healthPoints <= 0) {
+			//trace("Lvl lost");
+		}
 	}
 
 	override function postUpdate() {
