@@ -32,7 +32,7 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:penguin,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:penguin/splash.png,type:Ignore}]
+inputFiles=[{path:penguin,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false}]
 
 
 ---
@@ -110,7 +110,7 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:plant,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:penguin/splash.png,type:Ignore}]
+inputFiles=[{path:plant,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false}]
 
 
 ---
@@ -149,7 +149,7 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:penguin2,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:penguin2/splash.png,type:Ignore}]
+inputFiles=[{path:penguin2,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false}]
 
 
 -PROJ-
