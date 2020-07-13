@@ -4,8 +4,6 @@ import dn.CdbHelper;
 class Level extends dn.Process {
 	public var game(get, never) : Game;
 	inline function get_game() return Game.ME;
-	public var fx(get, never) : Fx;
-	inline function get_fx() return game.fx;
 
 	public var current(default, null) : Data.Levels;
 	public var currentIdx(default, null) : Int;

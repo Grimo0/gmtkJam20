@@ -8,6 +8,8 @@ class Hero extends Entity {
 	public var speed(default, null) : Float;
 	public var moved(default, null) : Bool;
 
+	public var won(default, null) = false;
+
 	public function new(kind : Data.AnimalKind, ?x, ?y, ?spriteLib) {
 		super(x, y, spriteLib);
 
@@ -94,9 +96,17 @@ class Hero extends Entity {
 		super.onDamage(dmg, from);
 
 		hxd.Res.sfx.hurt.play();
+
+		if (isDead()) {
+			spr.anim.removeAllStateAnims();
+			spr.anim.play("dead");
+			Main.ME.delayer.addS(Main.ME.startMainMenu, 5);
+		}
 	}
 
 	override function update() { // the Entity main loop
+		if (isDead() || won) return;
+
 		var moveLikeVehicule = true;
 		var rotationSpeed = data.turnSpeed;
 		var movementSpeed = data.maxSpeed;//(data.maxSpeed - data.minSpeed) * data.accelerationSpeed + data.minSpeed;
@@ -121,7 +131,7 @@ class Hero extends Entity {
 				dy -= Math.sin(angle) * backSpeed * tmod;
 			}
 		} else {
-			// Normal movement (haut bas gauche droite)
+			// Normal movement (up down left right)
 			if (ca.leftDown())
 				dx -= movementSpeed * tmod;
 			if (ca.rightDown())
@@ -132,6 +142,19 @@ class Hero extends Entity {
 				dy += movementSpeed * tmod;
 		}
 
-		super.update();
+		super.update();		
+		
+		// Did we reached the end trigger
+		for (t in level.current.triggers) {
+			if (t.id == End) {
+				if (t.x <= cx && t.x + t.width >= cx
+					&& t.y <= cy && t.y + t.height >= cy) {
+					hxd.Res.sfx.animalBig.play();
+					won = true;
+					Main.ME.delayer.addF(Main.ME.startMainMenu, 10);
+				}
+				break;
+			}
+		}
 	}
 }

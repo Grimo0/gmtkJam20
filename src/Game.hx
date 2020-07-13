@@ -7,7 +7,7 @@ class Game extends Process {
 	public static var ME : Game;
 
 	public var ca : dn.heaps.Controller.ControllerAccess;
-	public var fx : Fx;
+	// public var fx : Fx;
 	public var camera : Camera;
 	public var scroller : h2d.Layers;
 	public var level : Level;
@@ -33,16 +33,16 @@ class Game extends Process {
 		// scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		camera = new Camera();
-		fx = new Fx();
+		// fx = new Fx();
 		hud = new ui.Hud();
 		level = new Level();
 
+		Assets.musicLevel.play(true);
+
 		Process.resizeAll();
-		trace("is ready.");
 	}
 
 	public function startLevel(kind : Data.LevelsKind, animal : Data.AnimalKind) {
-		levelTimer = 0.0;
 		points = 0;
 
 		if (hero != null) {
@@ -50,6 +50,8 @@ class Game extends Process {
 		}
 
 		level.setLevel(kind);
+		
+		levelTimer = level.current.timer;
 
 		hero = new en.Hero(animal, Assets.animals.get(animal));
 
@@ -74,10 +76,12 @@ class Game extends Process {
 	override function onDispose() {
 		super.onDispose();
 
-		fx.destroy();
+		// fx.destroy();
 		for (e in Entity.ALL)
 			e.destroy();
 		gc();
+		
+		Assets.musicLevel.stop();
 	}
 
 	function gc() {
@@ -238,7 +242,11 @@ class Game extends Process {
 		}
 
 		// update timer
-		levelTimer += tmod / 60;
+		levelTimer -= tmod / 60;
+
+		if (levelTimer <= 0) {
+			hero.hit(hero.life, null);
+		}
 	}
 
 	override function postUpdate() {

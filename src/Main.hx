@@ -1,6 +1,13 @@
 import ui.MainMenu;
 import hxd.Key;
 
+class GameFocusHelper extends dn.heaps.GameFocusHelper {
+	override function suspendGame() {
+		if (Game.ME != null && !Game.ME.paused)
+			super.suspendGame();
+	}
+}
+
 class Main extends dn.Process {
 	public static var ME : Main;
 
@@ -31,18 +38,21 @@ class Main extends dn.Process {
 		controller.bind(X, Key.SPACE, Key.F, Key.E);
 		controller.bind(B, Key.ESCAPE);
 		controller.bind(SELECT, Key.R);
-		controller.bind(START, Key.ENTER, Key.N);
+		controller.bind(START, Key.ENTER);
 
 		// Focus helper (process that suspend the game when the focus is lost)
 		// TODO: Implement our own Focus Helper
-		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
+		new GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
 
 		// Start
-		//delayer.addF(startMainMenu, 1);
-		startGame(Data.LevelsKind.test1, Data.AnimalKind.penguin);
+		delayer.addF(startMainMenu, 1);
+		// startGame(Data.LevelsKind.test1, Data.AnimalKind.penguin);
 	}
 
 	public function startMainMenu() {
+		if (Game.ME != null)
+			Game.ME.destroy();
+
 		if (MainMenu.ME != null) {
 			MainMenu.ME.destroy();
 			delayer.addF(function() {
@@ -53,15 +63,18 @@ class Main extends dn.Process {
 	}
 
 	public function startGame(kind : Data.LevelsKind, animal : Data.AnimalKind) {
+		if (MainMenu.ME != null)
+			MainMenu.ME.destroy();
+
 		if (Game.ME != null) {
 			Game.ME.destroy();
 			delayer.addF(function() {
 				new Game();
-				Game.ME.startLevel(Data.LevelsKind.test1, Data.AnimalKind.penguin);
+				Game.ME.startLevel(kind, animal);
 			}, 1);
 		} else {
 			new Game();
-			Game.ME.startLevel(Data.LevelsKind.test1, Data.AnimalKind.penguin);
+			Game.ME.startLevel(kind, animal);
 		}
 	}
 
