@@ -74,25 +74,25 @@ class Assets {
 		var penguin = dn.heaps.assets.Atlas.load("atlas/penguin.atlas");
 		animals.set(Data.AnimalKind.penguin, penguin);
 		penguin.defineAnim("idle", "0");
-		penguin.defineAnim("move", "0-3(10)");
-		penguin.defineAnim("dead", "0-2(20)");
+		penguin.defineAnim("move", "0-3");
+		penguin.defineAnim("dead", "0-2");
 
 		var plant = dn.heaps.assets.Atlas.load("atlas/plant.atlas");
 		animals.set(Data.AnimalKind.plant, plant);
-		plant.defineAnim("idle", "0-2(10)");
-		plant.defineAnim("move", "0-3(10)");
-		plant.defineAnim("dead", "0-2(20)");
+		plant.defineAnim("idle", "0-2");
+		plant.defineAnim("move", "0-3");
+		plant.defineAnim("dead", "0-2");
 
 		var penguin2 = dn.heaps.assets.Atlas.load("atlas/penguin2.atlas");
 		animals.set(Data.AnimalKind.penguin2, penguin2);
 		penguin2.defineAnim("idle", "0");
-		penguin2.defineAnim("move", "0-3(10)");
-		penguin2.defineAnim("dead", "0-2(20)");
+		penguin2.defineAnim("move", "0-3");
+		penguin2.defineAnim("dead", "0-2");
 
 		var plant2 = dn.heaps.assets.Atlas.load("atlas/plant2.atlas");
 		animals.set(Data.AnimalKind.plant2, plant2);
-		plant2.defineAnim("idle", "0-2(10)");
-		plant2.defineAnim("move", "0-3(10)");
-		plant2.defineAnim("dead", "0-2(20)");
+		plant2.defineAnim("idle", "0-2");
+		plant2.defineAnim("move", "0-3");
+		plant2.defineAnim("dead", "0-2");
 	}
 }

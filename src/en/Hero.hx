@@ -19,7 +19,7 @@ class Hero extends Entity {
 
 		spr.anim.registerStateAnim("idle", 0);
 		spr.anim.registerStateAnim("move", 1, function() return dx != 0 || dy != 0);
-		// spr.anim.setStateAnimSpeed("move", );
+		spr.anim.setGlobalSpeed(0.15);
 
 		reset();
 	}
@@ -100,7 +100,7 @@ class Hero extends Entity {
 		if (isDead()) {
 			spr.anim.removeAllStateAnims();
 			spr.anim.play("dead");
-			Main.ME.delayer.addS(Main.ME.startMainMenu, 5);
+			Main.ME.delayer.addF(Main.ME.startMainMenu, spr.anim.getDurationF() + 30);
 		}
 	}
 
@@ -151,7 +151,7 @@ class Hero extends Entity {
 					&& t.y <= cy && t.y + t.height >= cy) {
 					hxd.Res.sfx.animalBig.play();
 					won = true;
-					Main.ME.delayer.addF(Main.ME.startMainMenu, 10);
+					Main.ME.delayer.addF(Main.ME.startMainMenu, 30);
 				}
 				break;
 			}
