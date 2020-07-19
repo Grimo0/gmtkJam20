@@ -22,7 +22,7 @@ class Camera extends dn.Process {
 		super(Game.ME);
 		x = y = 0;
 		dx = dy = 0;
-		frict = 0.96;
+		frict = 0.90;
 		bumpFrict = 0.90;
 	}
 
