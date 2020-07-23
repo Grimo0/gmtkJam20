@@ -12,23 +12,24 @@ class MainMenu extends Process {
 	var currentAnimal(null, set) : Int = -1;
 	function set_currentAnimal(v : Int) {
 		if (currentAnimal >= 0) {
-			var kind = animals[currentAnimal];
-			var prevAnimalSpr = cast(animalLayers.getObjectByName(kind.toString()), HSprite);
-			unselectAnimal(prevAnimalSpr);
+			var prevKind = animals[currentAnimal];
+			var prevSpr = cast(animalLayers.getObjectByName(prevKind.toString()), HSprite);
+			var sprIdx = animalLayers.getChildIndex(prevSpr);
+			sprIdx = sprIdx + 1 < animals.length ? sprIdx + 1 : 0;
+			var spr = cast(animalLayers.getChildAt(sprIdx), HSprite);
+			prevSpr.setScale(spr.scaleX);
+			prevSpr.color.load(spr.color);
 		}
 
-		var kind = animals[v];
-		var animalSpr = cast(animalLayers.getObjectByName(kind.toString()), HSprite);
-		animalSpr.setScale(1);
-		animalSpr.color.set(1, 1, 1);
-		animalLayers.over(animalSpr);
+		if (v >= 0) {
+			var kind = animals[v];
+			var spr = cast(animalLayers.getObjectByName(kind.toString()), HSprite);
+			spr.setScale(1);
+			spr.color.set(1, 1, 1);
+			animalLayers.over(spr);
+		}
 
 		return currentAnimal = v;
-	}
-
-	inline function unselectAnimal(animalSpr : HSprite) {
-		animalSpr.setScale(0.5);
-		animalSpr.color.scale3(0.7);
 	}
 
 	var levelLayers : h2d.Layers;
@@ -36,23 +37,24 @@ class MainMenu extends Process {
 	var currentLevel(null, set) : Int = -1;
 	function set_currentLevel(v : Int) {
 		if (currentLevel >= 0) {
-			var kind = levels[currentLevel];
-			var prevLevelSpr = cast(levelLayers.getObjectByName(kind.toString()), HSprite);
-			unselectLevel(prevLevelSpr);
+			var prevKind = levels[currentLevel];
+			var prevSpr = cast(levelLayers.getObjectByName(prevKind.toString()), HSprite);
+			var sprIdx = levelLayers.getChildIndex(prevSpr);
+			sprIdx = sprIdx + 1 < levels.length ? sprIdx + 1 : 0;
+			var spr = cast(levelLayers.getChildAt(sprIdx), HSprite);
+			prevSpr.setScale(spr.scaleX);
+			prevSpr.color.load(spr.color);
 		}
 
-		var kind = levels[v];
-		var levelSpr = cast(levelLayers.getObjectByName(kind.toString()), HSprite);
-		levelSpr.setScale(2);
-		levelSpr.color.set(1, 1, 1);
-		levelLayers.over(levelSpr);
+		if (v >= 0) {
+			var kind = levels[v];
+			var spr = cast(levelLayers.getObjectByName(kind.toString()), HSprite);
+			spr.setScale(2);
+			spr.color.set(1, 1, 1);
+			levelLayers.over(spr);
+		}
 
 		return currentLevel = v;
-	}
-
-	inline function unselectLevel(levelSpr : HSprite) {
-		levelSpr.setScale(1.5);
-		levelSpr.color.scale3(0.7);
 	}
 
 	var logoLayers : h2d.Layers;
@@ -79,7 +81,8 @@ class MainMenu extends Process {
 			animalSpr.x = offsetX;
 			offsetX += Std.int(animalSpr.tile.width * 0.65);
 			animalSpr.y = 0;
-			unselectAnimal(animalSpr);
+			animalSpr.setScale(0.5);
+			animalSpr.color.scale3(0.7);
 		}
 
 		// -- Levels
@@ -97,7 +100,8 @@ class MainMenu extends Process {
 			levelSpr.x = 0;
 			levelSpr.y = offsetY;
 			offsetY += Std.int(levelSpr.tile.height * 2);
-			unselectLevel(levelSpr);
+			levelSpr.setScale(1.5);
+			levelSpr.color.scale3(0.7);
 		}
 
 		// -- Logo
