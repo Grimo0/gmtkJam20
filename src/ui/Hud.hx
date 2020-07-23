@@ -34,10 +34,7 @@ class SineDeformShader extends hxsl.Shader {
 class Hud extends dn.Process {
 	public var game(get, never) : Game;
 	inline function get_game() return Game.ME;
-	public var level(get, never) : Level;
-	inline function get_level() return Game.ME.level;
 
-	var invalidated = true;
 	var colors : Array<Int>;
 
 	var timerTxt : h2d.Text;
@@ -45,16 +42,14 @@ class Hud extends dn.Process {
 	var comboTxt : h2d.Text;
 	var lifePointsUi : h2d.Layers;
 	var updateHp : Int;
-	var animalLogo : HSprite;
 
 	var popupTime : Float;
 	var comboUiLayer : h2d.Layers;
 
 	public function new() {
-		super(Game.ME);
+		super(game);
 
-		createRootInLayers(Game.ME.root, Const.DP_UI);
-		root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
+		createRootInLayers(game.root, Const.DP_UI);
 
 		colors = [
 			0xff4017, 0x4fff17, 0x17fffb, 0x1753ff, 0xa717ff, 0xFFFFFF, 0xfbff17, 0xff17f8, 0xffb917, 0xFFFFFF, 0xFFFFFF
@@ -71,20 +66,14 @@ class Hud extends dn.Process {
 		scoreTxt.x = 150;
 		scoreTxt.y = 40;
 		scoreTxt.rotation = -0.1;
+		scoreTxt.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 		root.add(scoreTxt, Const.DP_UI);
 
-		// combo
-		comboTxt = new h2d.Text(Assets.fontLarge);
-		comboTxt.dropShadow = {
-			dx: 1,
-			dy: 1,
-			color: 0xFF0000,
-			alpha: 0.8
-		};
-		comboTxt.x = 40;//150
-		comboTxt.y = 200;
-		comboTxt.rotation = -0.1;
-		root.add(comboTxt, Const.DP_UI);
+		// HealthPoints
+		lifePointsUi = new h2d.Layers();
+		lifePointsUi.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
+		root.add(lifePointsUi, Const.DP_UI);
+		updateHp = 0;
 
 		// Timer
 		timerTxt = new h2d.Text(Assets.fontLarge);
@@ -97,20 +86,28 @@ class Hud extends dn.Process {
 		timerTxt.x = 155;
 		timerTxt.y = 125;
 		timerTxt.rotation = 0.12;
+		timerTxt.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 		root.add(timerTxt, Const.DP_UI);
+
+		// combo
+		comboTxt = new h2d.Text(Assets.fontPixel);
+		comboTxt.dropShadow = {
+			dx: 1,
+			dy: 1,
+			color: 0xFF0000,
+			alpha: 0.8
+		};
+		comboTxt.x = 40;
+		comboTxt.y = 200;
+		comboTxt.rotation = -0.1;
+		comboTxt.addShader(new SineDeformShader(0.05, 0.002, 3));
+		root.add(comboTxt, Const.DP_UI);
 
 		// score popups ui
 		popupTime = 0;
 		comboUiLayer = new h2d.Layers();
 		comboUiLayer.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 		game.scroller.add(comboUiLayer, Const.DP_UI);
-
-		// HealthPoints
-		lifePointsUi = new h2d.Layers();
-		root.add(lifePointsUi, Const.DP_UI);
-		updateHp = 0;
-
-		animalLogo = null;
 	}
 
 	public function reset() {
@@ -123,10 +120,11 @@ class Hud extends dn.Process {
 		updateHp = game.hero.life;
 
 		// Animal logo
-		animalLogo = Assets.ui.h_get(game.hero.data.id.toString(), 0, 0, root);
+		var animalLogo = Assets.ui.h_get(game.hero.data.id.toString(), 0, 0, root);
 		animalLogo.x = 40;
 		animalLogo.y = 65;
 		animalLogo.scale(2);
+		animalLogo.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 	}
 
 	public inline function updateHearts() {
@@ -163,41 +161,33 @@ class Hud extends dn.Process {
 		scoreTf.x = x;
 		scoreTf.y = y;
 		scoreTf.rotation = Math.random() - 0.5;
-		scoreTf.addShader(new SineDeformShader(0.05, 0.002, 3));
+		scoreTf.addShader(new SineDeformShader(0.05, 0.002, 10));
 
-		var cpt = 1.2;
+		var cpt = 1.2 + M.fmin(comboUiLayer.numChildren, 8) * 0.25;
 		for (l in comboUiLayer) {
 			l.alpha -= 0.2;
-			cpt += 0.25;
+			if (l.alpha <= 0) {
+				l.remove();
+				break;
+			}
 		}
-		scoreTf.scale(cpt);
+		scoreTf.setScale(cpt);
 		comboUiLayer.add(scoreTf, Const.DP_UI);
+
+		comboTxt.setScale(M.fclamp(cpt, 3, 6));
 	}
 
 	override function onResize() {
 		super.onResize();
 		root.setScale(Const.UI_SCALE);
-	}
-
-	public inline function invalidate()
-		invalidated = true;
-
-	function render() {}
-
-	override function postUpdate() {
-		super.postUpdate();
-
-		if (invalidated) {
-			invalidated = false;
-			render();
-		}
+		comboTxt.y = (game.h() - comboTxt.textHeight) / 2;
 	}
 
 	override function update() {
 		super.update();
 
 		// timer hud
-		var levelTimerDisplay = Std.int(game.levelTimer * 100) / 100;
+		var levelTimerDisplay = Std.int(game.levelTimer);
 		timerTxt.text = levelTimerDisplay + "s";
 
 		// total score hud
@@ -218,10 +208,7 @@ class Hud extends dn.Process {
 			}
 
 			// combo points hud
-			var numberCombo = 0;
-			for (a in comboUiLayer) {
-				numberCombo += 1;
-			}
+			var numberCombo = comboUiLayer.numChildren;
 			if (numberCombo > 0) {
 				comboTxt.text = "Combo x" + numberCombo;
 			}
