@@ -9,6 +9,13 @@ class Const {
 	public static var GRID = 16;
 	public static var MAX_CELLS_PER_WIDTH = 25;
 
+	public static var COMBO_BONUS = 100;
+	public static var TIMER_BONUS_PER_SEC = 10;
+	public static var LIFE_BONUS = 10;
+	public static var TIMER_OUT_MUL = 0;
+	public static var DEATH_MUL = 0.5;
+	public static var ESCAPE_MUL = 2;
+
 	static var _uniq = 0;
 	public static var NEXT_UNIQ(get, never) : Int;
 	static inline function get_NEXT_UNIQ()
@@ -23,5 +30,6 @@ class Const {
 	public static var DP_FRONT = _inc++;
 	public static var DP_FX_FRONT = _inc++;
 	public static var DP_TOP = _inc++;
+	public static var DP_HUD = _inc++;
 	public static var DP_UI = _inc++;
 }

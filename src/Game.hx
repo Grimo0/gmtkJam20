@@ -6,16 +6,18 @@ import hxd.Key;
 class Game extends Process {
 	public static var ME : Game;
 
-	public var ca : dn.heaps.Controller.ControllerAccess;
+	public var ca(default, null) : dn.heaps.Controller.ControllerAccess;
 	// public var fx : Fx;
-	public var camera : Camera;
-	public var scroller : h2d.Layers;
-	public var level : Level;
-	public var hud : ui.Hud;
-	public var hero : Hero;
+	public var camera(default, null) : Camera;
+	public var scroller(default, null) : h2d.Layers;
+	public var level(default, null) : Level;
+	public var hud(default, null) : ui.Hud;
+	public var hero(default, null) : Hero;
 
-	public var levelTimer : Float;
+	public var levelTimer(default, null) : Float;
 	public var points : Int;
+	public var combo : Int;
+	public var highestCombo : Int;
 
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, {id : String, t : Float, f : Float}> = new Map();
@@ -44,6 +46,8 @@ class Game extends Process {
 
 	public function startLevel(kind : Data.LevelsKind, animal : Data.AnimalKind) {
 		points = 0;
+		combo = 0;
+		highestCombo = 0;
 
 		if (hero != null) {
 			hero.destroy();
@@ -105,7 +109,7 @@ class Game extends Process {
 	function updateSlowMos() {
 		// Timeout active slow-mos
 		for (s in slowMos) {
-			s.t -= utmod * 1 / Const.FPS;
+			s.t -= utmod / Const.FPS;
 			if (s.t <= 0)
 				slowMos.remove(s.id);
 		}
@@ -153,12 +157,12 @@ class Game extends Process {
 				if (!cd.hasSetS("exitWarn", 3))
 					trace(Lang.t._("Press ESCAPE again to exit."));
 				else
-					Main.ME.startMainMenu();
+					return Main.ME.startMainMenu();
 			}
 
 			// Restart
 			if (ca.selectPressed())
-				Main.ME.startGame(level.current.id, hero.data.id);
+				return Main.ME.startGame(level.current.id, hero.data.id);
 
 			#if debug
 			// Bounds
@@ -242,7 +246,7 @@ class Game extends Process {
 		}
 
 		// update timer
-		levelTimer -= tmod / 60;
+		levelTimer -= tmod / Const.FPS;
 
 		if (levelTimer <= 0) {
 			hero.hit(hero.life, null);

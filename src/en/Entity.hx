@@ -271,7 +271,7 @@ class Entity {
 		if (sec <= 0)
 			cb();
 		else
-			actions.push({id: id, cb: cb, t: sec});
+			actions.push({id: id, cb: cb, t: sec * Const.FPS});
 	}
 
 	public function isChargingAction(?id : String) {
@@ -303,7 +303,7 @@ class Entity {
 		var i = 0;
 		while (i < actions.length) {
 			var a = actions[i];
-			a.t -= tmod / Const.FPS;
+			a.t -= tmod;
 			if (a.t <= 0) {
 				actions.splice(i, 1);
 				if (!destroyed)

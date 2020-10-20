@@ -5,7 +5,7 @@ import dn.Process;
 class MainMenu extends Process {
 	public static var ME : MainMenu;
 
-	public var ca : dn.heaps.Controller.ControllerAccess;
+	public var ca(default, null) : dn.heaps.Controller.ControllerAccess;
 
 	var animalLayers : h2d.Layers;
 	var animals : Array<Data.AnimalKind>;
@@ -62,9 +62,11 @@ class MainMenu extends Process {
 	public function new() {
 		super(Main.ME);
 		ME = this;
+
 		ca = Main.ME.controller.createAccess("mainMenu");
 		ca.setLeftDeadZone(0.2);
 		ca.setRightDeadZone(0.2);
+		
 		createRootInLayers(Main.ME.root, Const.DP_UI);
 		root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
@@ -159,7 +161,7 @@ class MainMenu extends Process {
 		}
 
 		// Validate
-		if (ca.startPressed()) {
+		if (ca.aPressed()) {
 			var level = levels[currentLevel];
 			if (currentAnimal < 0) {
 				var levelSpr = cast(levelLayers.getObjectByName(level.toString()), HSprite);

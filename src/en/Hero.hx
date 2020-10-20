@@ -100,7 +100,7 @@ class Hero extends Entity {
 		if (isDead()) {
 			spr.anim.removeAllStateAnims();
 			spr.anim.play("dead");
-			Main.ME.delayer.addF(Main.ME.startMainMenu, spr.anim.getDurationF() + 30);
+			game.delayer.addF(Main.ME.startScoreMenu, spr.anim.getDurationF() + 30);
 		}
 	}
 
@@ -151,7 +151,7 @@ class Hero extends Entity {
 					&& t.y <= cy && t.y + t.height >= cy) {
 					hxd.Res.sfx.animalBig.play();
 					won = true;
-					Main.ME.delayer.addF(Main.ME.startMainMenu, 30);
+					game.delayer.addF(Main.ME.startScoreMenu, 30);
 				}
 				break;
 			}

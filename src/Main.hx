@@ -1,3 +1,4 @@
+import ui.ScoreMenu;
 import ui.MainMenu;
 import hxd.Key;
 
@@ -39,19 +40,17 @@ class Main extends dn.Process {
 		controller.bind(B, Key.ESCAPE);
 		controller.bind(SELECT, Key.R);
 		controller.bind(START, Key.ENTER);
+		controller.bind(A, Key.ENTER);
 
 		// Focus helper (process that suspend the game when the focus is lost)
-		// TODO: Implement our own Focus Helper
 		new GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
 
 		// Start
 		delayer.addF(startMainMenu, 1);
-		// startGame(Data.LevelsKind.test1, Data.AnimalKind.penguin);
 	}
 
 	public function startMainMenu() {
-		if (Game.ME != null)
-			Game.ME.destroy();
+		killAllChildrenProcesses();
 
 		if (MainMenu.ME != null) {
 			MainMenu.ME.destroy();
@@ -63,8 +62,7 @@ class Main extends dn.Process {
 	}
 
 	public function startGame(kind : Data.LevelsKind, animal : Data.AnimalKind) {
-		if (MainMenu.ME != null)
-			MainMenu.ME.destroy();
+		killAllChildrenProcesses();
 
 		if (Game.ME != null) {
 			Game.ME.destroy();
@@ -76,6 +74,16 @@ class Main extends dn.Process {
 			new Game();
 			Game.ME.startLevel(kind, animal);
 		}
+	}
+
+	public function startScoreMenu() {
+		if (ScoreMenu.ME != null) {
+			ScoreMenu.ME.destroy();
+			delayer.addF(function() {
+				new ScoreMenu();
+			}, 1);
+		} else
+			new ScoreMenu();
 	}
 
 	override public function onResize() {

@@ -3,34 +3,6 @@ package ui;
 import hxd.fmt.grd.Data.Gradient;
 import h2d.filter.ColorMatrix;
 
-class SineDeformShader extends hxsl.Shader {
-	static var SRC = {
-		// @:import h3d.shader.Base2d;
-		@global var time : Float;
-		@param var speed : Float;
-		@param var frequency : Float;
-		@param var amplitude : Float;
-		var calculatedUV : Vec2;
-		var absolutePosition : Vec4;
-		var pixelColor : Vec4;
-		var textureColor : Vec4;
-		function fragment() {
-			calculatedUV.x += sin(absolutePosition.y * frequency + time * speed + absolutePosition.x * 0.1) * amplitude;
-			// pixelColor = texture.get(calculatedUV);
-		}
-	};
-
-	public function new(frequency = 10., amplitude = 0.01, speed = 1.) {
-		super();
-		this.frequency = frequency;
-		this.amplitude = amplitude;
-		this.speed = speed;
-	}
-
-	// calculatedUV.y += sin(calculatedUV.y * frequency + time * speed) * amplitude; // wave deform
-	// pixelColor = texture.get(calculatedUV);
-}
-
 class Hud extends dn.Process {
 	public var game(get, never) : Game;
 	inline function get_game() return Game.ME;
@@ -49,7 +21,7 @@ class Hud extends dn.Process {
 	public function new() {
 		super(game);
 
-		createRootInLayers(game.root, Const.DP_UI);
+		createRootInLayers(game.root, Const.DP_HUD);
 
 		colors = [
 			0xff4017, 0x4fff17, 0x17fffb, 0x1753ff, 0xa717ff, 0xFFFFFF, 0xfbff17, 0xff17f8, 0xffb917, 0xFFFFFF, 0xFFFFFF
@@ -67,12 +39,12 @@ class Hud extends dn.Process {
 		scoreTxt.y = 40;
 		scoreTxt.rotation = -0.1;
 		scoreTxt.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
-		root.add(scoreTxt, Const.DP_UI);
+		root.addChild(scoreTxt);
 
 		// HealthPoints
 		lifePointsUi = new h2d.Layers();
 		lifePointsUi.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
-		root.add(lifePointsUi, Const.DP_UI);
+		root.addChild(lifePointsUi);
 		updateHp = 0;
 
 		// Timer
@@ -87,7 +59,7 @@ class Hud extends dn.Process {
 		timerTxt.y = 125;
 		timerTxt.rotation = 0.12;
 		timerTxt.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
-		root.add(timerTxt, Const.DP_UI);
+		root.addChild(timerTxt);
 
 		// combo
 		comboTxt = new h2d.Text(Assets.fontPixel);
@@ -101,7 +73,7 @@ class Hud extends dn.Process {
 		comboTxt.y = 200;
 		comboTxt.rotation = -0.1;
 		comboTxt.addShader(new SineDeformShader(0.05, 0.002, 3));
-		root.add(comboTxt, Const.DP_UI);
+		root.addChild(comboTxt);
 
 		// score popups ui
 		popupTime = 0;
@@ -120,7 +92,7 @@ class Hud extends dn.Process {
 		updateHp = game.hero.life;
 
 		// Animal logo
-		var animalLogo = Assets.ui.h_get(game.hero.data.id.toString(), 0, 0, root);
+		var animalLogo = Assets.ui.h_get(game.hero.data.id.toString(), root);
 		animalLogo.x = 40;
 		animalLogo.y = 65;
 		animalLogo.scale(2);
@@ -130,17 +102,17 @@ class Hud extends dn.Process {
 	public inline function updateHearts() {
 		lifePointsUi.removeChildren();
 		for (i in 0...game.hero.life) {
-			var lifePointUi = Assets.ui.h_get("life", 0, 0, lifePointsUi);
+			var lifePointUi = Assets.ui.h_get("life", lifePointsUi);
 			lifePointUi.x = 160 + 35 * i;
 			lifePointUi.y = 95;
 		}
 		updateHp = game.hero.life;
 	}
 
-	public function pointsGain(x = 70.0, y = 50.0, pts = 1000) {
+	public function pointsGain(x, y, pts) {
 		// Display a popup with the points won, after collision.
-		// The message is after few seconds.
-		popupTime = 100.;
+		// The message is destroyed after few seconds.
+		popupTime = 10. * Const.FPS;
 
 		var scoreTf = new h2d.Text(Assets.fontPixel);
 		scoreTf.dropShadow = {
@@ -161,7 +133,7 @@ class Hud extends dn.Process {
 		scoreTf.x = x;
 		scoreTf.y = y;
 		scoreTf.rotation = Math.random() - 0.5;
-		scoreTf.addShader(new SineDeformShader(0.05, 0.002, 10));
+		scoreTf.addShader(new SineDeformShader(0.05, 0.001, 10));
 
 		var cpt = 1.2 + M.fmin(comboUiLayer.numChildren, 8) * 0.25;
 		for (l in comboUiLayer) {
@@ -172,9 +144,13 @@ class Hud extends dn.Process {
 			}
 		}
 		scoreTf.setScale(cpt);
-		comboUiLayer.add(scoreTf, Const.DP_UI);
+		comboUiLayer.addChild(scoreTf);
 
 		comboTxt.setScale(M.fclamp(cpt, 3, 6));
+
+		game.combo++;
+		if (game.combo > game.highestCombo)
+			game.highestCombo = game.combo;
 	}
 
 	override function onResize() {
